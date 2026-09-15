@@ -1,0 +1,26 @@
+# VS Code
+.vscode/
+
+# IntelliJ
+.idea/
+
+# Java
+*.class
+target/
+
+# Environment variables
+.env
+.env.*
+
+# Node
+node_modules/
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
