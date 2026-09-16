@@ -25,7 +25,11 @@ Students will be able to:
 - Feature showcase
 - Career progress visualization
 - Responsive mobile navigation
-
+- Login page
+- Registration page
+- Form validation
+- Password visibility toggle
+- Password strength indicator
 ### Coming Soon
 
 - User registration

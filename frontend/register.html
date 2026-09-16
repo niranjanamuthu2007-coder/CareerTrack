@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="Create your CareerTrack account">
+
+    <title>Create Account | CareerTrack</title>
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="css/auth.css">
+
+</head>
+
+
+<body>
+
+    <!-- Background decoration -->
+
+    <div class="background-decoration decoration-one"></div>
+
+    <div class="background-decoration decoration-two"></div>
+
+
+    <main class="auth-page">
+
+
+        <!-- Left section -->
+
+        <section class="auth-info">
+
+            <a href="index.html"
+               class="logo">
+
+                <span class="logo-icon">
+                    C
+                </span>
+
+                <span>
+                    Career<span class="logo-highlight">
+                        Track
+                    </span>
+                </span>
+
+            </a>
+
+
+            <div class="info-content">
+
+                <span class="info-tag">
+                    START YOUR JOURNEY
+                </span>
+
+                <h1>
+                    Build your skills.
+                    <span>Shape your future.</span>
+                </h1>
+
+                <p>
+                    Create your CareerTrack account and organize
+                    everything you need for placement preparation.
+                </p>
+
+
+                <div class="info-points">
+
+                    <div class="info-point">
+
+                        <span class="point-icon">
+                            ✓
+                        </span>
+
+                        <span>
+                            Organize your preparation
+                        </span>
+
+                    </div>
+
+
+                    <div class="info-point">
+
+                        <span class="point-icon">
+                            ✓
+                        </span>
+
+                        <span>
+                            Track your progress
+                        </span>
+
+                    </div>
+
+
+                    <div class="info-point">
+
+                        <span class="point-icon">
+                            ✓
+                        </span>
+
+                        <span>
+                            Prepare with confidence
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <p class="copyright">
+                © 2026 CareerTrack
+            </p>
+
+        </section>
+
+
+        <!-- Registration section -->
+
+        <section class="auth-card-section">
+
+            <div class="auth-card register-card">
+
+
+                <div class="auth-header">
+
+                    <div class="mobile-logo">
+
+                        <span class="logo-icon">
+                            C
+                        </span>
+
+                        <span>
+                            Career<span class="logo-highlight">
+                                Track
+                            </span>
+                        </span>
+
+                    </div>
+
+
+                    <h2>
+                        Create your account
+                    </h2>
+
+                    <p>
+                        Start organizing your placement journey.
+                    </p>
+
+                </div>
+
+
+                <form id="registerForm"
+                      novalidate>
+
+
+                    <!-- Full Name -->
+
+                    <div class="form-group">
+
+                        <label for="registerName">
+                            Full name
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <span class="input-icon">
+                                ◉
+                            </span>
+
+                            <input
+                                type="text"
+                                id="registerName"
+                                name="name"
+                                placeholder="Enter your full name"
+                                autocomplete="name"
+                            >
+
+                        </div>
+
+                        <small
+                            class="error-message"
+                            id="registerNameError">
+                        </small>
+
+                    </div>
+
+
+                    <!-- Email -->
+
+                    <div class="form-group">
+
+                        <label for="registerEmail">
+                            Email address
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <span class="input-icon">
+                                @
+                            </span>
+
+                            <input
+                                type="email"
+                                id="registerEmail"
+                                name="email"
+                                placeholder="you@example.com"
+                                autocomplete="email"
+                            >
+
+                        </div>
+
+                        <small
+                            class="error-message"
+                            id="registerEmailError">
+                        </small>
+
+                    </div>
+
+
+                    <!-- Password -->
+
+                    <div class="form-group">
+
+                        <label for="registerPassword">
+                            Password
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <span class="input-icon">
+                                ●
+                            </span>
+
+                            <input
+                                type="password"
+                                id="registerPassword"
+                                name="password"
+                                placeholder="Create a password"
+                                autocomplete="new-password"
+                            >
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                data-target="registerPassword"
+                                aria-label="Show password">
+
+                                Show
+
+                            </button>
+
+                        </div>
+
+
+                        <!-- Password strength -->
+
+                        <div class="password-strength">
+
+                            <div class="strength-bar">
+
+                                <span id="strengthFill"></span>
+
+                            </div>
+
+                            <span id="strengthText">
+                                Enter a password
+                            </span>
+
+                        </div>
+
+
+                        <small
+                            class="error-message"
+                            id="registerPasswordError">
+                        </small>
+
+                    </div>
+
+
+                    <!-- Confirm password -->
+
+                    <div class="form-group">
+
+                        <label for="confirmPassword">
+                            Confirm password
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <span class="input-icon">
+                                ●
+                            </span>
+
+                            <input
+                                type="password"
+                                id="confirmPassword"
+                                name="confirmPassword"
+                                placeholder="Confirm your password"
+                                autocomplete="new-password"
+                            >
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                data-target="confirmPassword"
+                                aria-label="Show password">
+
+                                Show
+
+                            </button>
+
+                        </div>
+
+                        <small
+                            class="error-message"
+                            id="confirmPasswordError">
+                        </small>
+
+                    </div>
+
+
+                    <!-- Terms -->
+
+                    <div class="terms-row">
+
+                        <label class="checkbox-label">
+
+                            <input
+                                type="checkbox"
+                                id="terms"
+                            >
+
+                            <span>
+                                I agree to the
+                                <a href="#">
+                                    Terms & Conditions
+                                </a>
+                            </span>
+
+                        </label>
+
+                    </div>
+
+
+                    <!-- Submit -->
+
+                    <button
+                        type="submit"
+                        class="auth-button">
+
+                        Create Account
+
+                        <span>
+                            →
+                        </span>
+
+                    </button>
+
+
+                    <div
+                        class="form-status"
+                        id="registerStatus">
+                    </div>
+
+                </form>
+
+
+                <!-- Login link -->
+
+                <div class="auth-switch">
+
+                    Already have an account?
+
+                    <a href="login.html">
+                        Login
+                    </a>
+
+                </div>
+
+
+                <a href="index.html"
+                   class="back-home">
+
+                    ← Back to home
+
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="js/auth.js"></script>
+
+</body>
+
+</html>
+

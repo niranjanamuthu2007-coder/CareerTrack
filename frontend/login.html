@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="Login to CareerTrack">
+
+    <title>Login | CareerTrack</title>
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="css/auth.css">
+
+</head>
+
+
+<body>
+
+    <!-- Background decoration -->
+
+    <div class="background-decoration decoration-one"></div>
+
+    <div class="background-decoration decoration-two"></div>
+
+
+    <!-- Main authentication container -->
+
+    <main class="auth-page">
+
+
+        <!-- Left side -->
+
+        <section class="auth-info">
+
+            <a href="index.html"
+               class="logo">
+
+                <span class="logo-icon">
+                    C
+                </span>
+
+                <span>
+                    Career<span class="logo-highlight">
+                        Track
+                    </span>
+                </span>
+
+            </a>
+
+
+            <div class="info-content">
+
+                <span class="info-tag">
+                    WELCOME BACK
+                </span>
+
+                <h1>
+                    Continue your
+                    <span>career journey.</span>
+                </h1>
+
+                <p>
+                    Track your preparation, manage your applications
+                    and stay focused on your placement goals.
+                </p>
+
+
+                <div class="info-points">
+
+                    <div class="info-point">
+
+                        <span class="point-icon">
+                            ✓
+                        </span>
+
+                        <span>
+                            Track your DSA progress
+                        </span>
+
+                    </div>
+
+
+                    <div class="info-point">
+
+                        <span class="point-icon">
+                            ✓
+                        </span>
+
+                        <span>
+                            Manage job applications
+                        </span>
+
+                    </div>
+
+
+                    <div class="info-point">
+
+                        <span class="point-icon">
+                            ✓
+                        </span>
+
+                        <span>
+                            Build better preparation habits
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <p class="copyright">
+                © 2026 CareerTrack
+            </p>
+
+        </section>
+
+
+        <!-- Right side -->
+
+        <section class="auth-card-section">
+
+            <div class="auth-card">
+
+
+                <div class="auth-header">
+
+                    <div class="mobile-logo">
+
+                        <span class="logo-icon">
+                            C
+                        </span>
+
+                        <span>
+                            Career<span class="logo-highlight">
+                                Track
+                            </span>
+                        </span>
+
+                    </div>
+
+
+                    <h2>
+                        Welcome back
+                    </h2>
+
+                    <p>
+                        Login to continue to your dashboard.
+                    </p>
+
+                </div>
+
+
+                <!-- Login form -->
+
+                <form id="loginForm"
+                      novalidate>
+
+
+                    <!-- Email -->
+
+                    <div class="form-group">
+
+                        <label for="loginEmail">
+                            Email address
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <span class="input-icon">
+                                @
+                            </span>
+
+                            <input
+                                type="email"
+                                id="loginEmail"
+                                name="email"
+                                placeholder="you@example.com"
+                                autocomplete="email"
+                            >
+
+                        </div>
+
+                        <small class="error-message"
+                               id="loginEmailError">
+                        </small>
+
+                    </div>
+
+
+                    <!-- Password -->
+
+                    <div class="form-group">
+
+                        <div class="label-row">
+
+                            <label for="loginPassword">
+                                Password
+                            </label>
+
+                            <a href="#"
+                               class="forgot-link">
+                                Forgot password?
+                            </a>
+
+                        </div>
+
+
+                        <div class="input-wrapper">
+
+                            <span class="input-icon">
+                                ●
+                            </span>
+
+                            <input
+                                type="password"
+                                id="loginPassword"
+                                name="password"
+                                placeholder="Enter your password"
+                                autocomplete="current-password"
+                            >
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                data-target="loginPassword"
+                                aria-label="Show password">
+
+                                Show
+
+                            </button>
+
+                        </div>
+
+                        <small class="error-message"
+                               id="loginPasswordError">
+                        </small>
+
+                    </div>
+
+
+                    <!-- Remember -->
+
+                    <div class="remember-row">
+
+                        <label class="checkbox-label">
+
+                            <input
+                                type="checkbox"
+                                id="rememberMe"
+                            >
+
+                            <span>
+                                Remember me
+                            </span>
+
+                        </label>
+
+                    </div>
+
+
+                    <!-- Submit -->
+
+                    <button
+                        type="submit"
+                        class="auth-button">
+
+                        Login
+
+                        <span>
+                            →
+                        </span>
+
+                    </button>
+
+
+                    <!-- Form status -->
+
+                    <div
+                        class="form-status"
+                        id="loginStatus">
+                    </div>
+
+                </form>
+
+
+                <!-- Register link -->
+
+                <div class="auth-switch">
+
+                    Don't have an account?
+
+                    <a href="register.html">
+                        Create account
+                    </a>
+
+                </div>
+
+
+                <a href="index.html"
+                   class="back-home">
+
+                    ← Back to home
+
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="js/auth.js"></script>
+
+</body>
+
+</html>
