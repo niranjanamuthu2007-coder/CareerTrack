@@ -190,6 +190,8 @@ if (loginForm) {
         }
 
 
+        // Stop if validation failed
+
         if (!valid) {
 
             setStatus(
@@ -203,13 +205,23 @@ if (loginForm) {
         }
 
 
-        // UI-only success message
+        // ================= LOGIN SUCCESS =================
 
         setStatus(
             "loginStatus",
-            "Login form validated successfully. Backend coming soon!",
+            "Login successful! Redirecting...",
             "success"
         );
+
+
+        // Redirect to dashboard
+
+        setTimeout(() => {
+
+            window.location.href =
+                "dashboard.html";
+
+        }, 800);
 
     });
 
@@ -268,7 +280,7 @@ if (registerForm) {
             let valid = true;
 
 
-            // Name
+            // ================= NAME =================
 
             if (name === "") {
 
@@ -291,7 +303,7 @@ if (registerForm) {
             }
 
 
-            // Email
+            // ================= EMAIL =================
 
             if (email === "") {
 
@@ -314,7 +326,7 @@ if (registerForm) {
             }
 
 
-            // Password
+            // ================= PASSWORD =================
 
             if (password === "") {
 
@@ -337,7 +349,7 @@ if (registerForm) {
             }
 
 
-            // Confirm password
+            // ================= CONFIRM PASSWORD =================
 
             if (confirmPassword === "") {
 
@@ -362,7 +374,7 @@ if (registerForm) {
             }
 
 
-            // Terms
+            // ================= TERMS =================
 
             if (!terms) {
 
@@ -377,28 +389,26 @@ if (registerForm) {
             }
 
 
+            // ================= VALIDATION FAILED =================
+
             if (!valid) {
 
-                if (!terms) {
-
-                    setStatus(
-                        "registerStatus",
-                        "Please fix the highlighted fields.",
-                        "error"
-                    );
-
-                }
+                setStatus(
+                    "registerStatus",
+                    "Please fix the highlighted fields.",
+                    "error"
+                );
 
                 return;
 
             }
 
 
-            // UI-only success
+            // ================= REGISTER SUCCESS =================
 
             setStatus(
                 "registerStatus",
-                "Account form validated successfully. Backend coming soon!",
+                "Account created successfully! Login coming soon.",
                 "success"
             );
 
@@ -445,22 +455,35 @@ if (
             let strength = 0;
 
 
+            // At least 8 characters
+
             if (password.length >= 8) {
                 strength++;
             }
+
+
+            // Uppercase
 
             if (/[A-Z]/.test(password)) {
                 strength++;
             }
 
+
+            // Number
+
             if (/[0-9]/.test(password)) {
                 strength++;
             }
+
+
+            // Special character
 
             if (/[^A-Za-z0-9]/.test(password)) {
                 strength++;
             }
 
+
+            // Empty password
 
             if (password.length === 0) {
 
@@ -475,6 +498,8 @@ if (
             }
 
 
+            // Weak
+
             if (strength === 1) {
 
                 strengthFill.style.width =
@@ -483,7 +508,12 @@ if (
                 strengthText.textContent =
                     "Weak password";
 
-            } else if (strength === 2) {
+            }
+
+
+            // Fair
+
+            else if (strength === 2) {
 
                 strengthFill.style.width =
                     "50%";
@@ -491,7 +521,12 @@ if (
                 strengthText.textContent =
                     "Fair password";
 
-            } else if (strength === 3) {
+            }
+
+
+            // Good
+
+            else if (strength === 3) {
 
                 strengthFill.style.width =
                     "75%";
@@ -499,7 +534,12 @@ if (
                 strengthText.textContent =
                     "Good password";
 
-            } else {
+            }
+
+
+            // Strong
+
+            else {
 
                 strengthFill.style.width =
                     "100%";

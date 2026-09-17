@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="CareerTrack student dashboard">
+
+    <title>Dashboard | CareerTrack</title>
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="css/dashboard.css">
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     SIDEBAR
+     ===================================================== -->
+
+<aside class="sidebar" id="sidebar">
+
+
+    <!-- Logo -->
+
+    <div class="sidebar-logo">
+
+        <a href="index.html"
+           class="logo">
+
+            <span class="logo-icon">
+                C
+            </span>
+
+            <span>
+                Career<span class="logo-highlight">
+                    Track
+                </span>
+            </span>
+
+        </a>
+
+    </div>
+
+
+    <!-- Navigation -->
+
+    <nav class="sidebar-nav">
+
+
+        <p class="nav-title">
+            MAIN MENU
+        </p>
+
+
+        <a href="dashboard.html"
+           class="nav-item active">
+
+            <span class="nav-icon">
+                ▦
+            </span>
+
+            <span>
+                Dashboard
+            </span>
+
+        </a>
+
+
+        <a href="#"
+           class="nav-item">
+
+            <span class="nav-icon">
+                ◈
+            </span>
+
+            <span>
+                DSA Tracker
+            </span>
+
+        </a>
+
+
+        <a href="#"
+           class="nav-item">
+
+            <span class="nav-icon">
+                💼
+            </span>
+
+            <span>
+                Job Tracker
+            </span>
+
+        </a>
+
+
+        <a href="#"
+           class="nav-item">
+
+            <span class="nav-icon">
+                🎯
+            </span>
+
+            <span>
+                Skills
+            </span>
+
+        </a>
+
+
+        <a href="#"
+           class="nav-item">
+
+            <span class="nav-icon">
+                📅
+            </span>
+
+            <span>
+                Study Planner
+            </span>
+
+        </a>
+
+
+        <p class="nav-title second-title">
+            ACCOUNT
+        </p>
+
+
+        <a href="#"
+           class="nav-item">
+
+            <span class="nav-icon">
+                ⚙
+            </span>
+
+            <span>
+                Settings
+            </span>
+
+        </a>
+
+
+    </nav>
+
+
+    <!-- Sidebar bottom -->
+
+    <div class="sidebar-bottom">
+
+        <div class="help-card">
+
+            <div class="help-icon">
+                ?
+            </div>
+
+            <div>
+
+                <strong>
+                    Need help?
+                </strong>
+
+                <span>
+                    We're here for you.
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <a href="index.html"
+           class="logout-link"
+           id="logoutBtn">
+
+            <span>
+                ↪
+            </span>
+
+            Logout
+
+        </a>
+
+    </div>
+
+
+</aside>
+
+
+<!-- =====================================================
+     MOBILE OVERLAY
+     ===================================================== -->
+
+<div class="sidebar-overlay"
+     id="sidebarOverlay">
+</div>
+
+
+<!-- =====================================================
+     MAIN CONTENT
+     ===================================================== -->
+
+<main class="main-content">
+
+
+    <!-- ================= TOPBAR ================= -->
+
+    <header class="topbar">
+
+
+        <button
+            class="mobile-menu"
+            id="mobileMenu">
+
+            ☰
+
+        </button>
+
+
+        <div class="topbar-left">
+
+            <span class="page-label">
+                Overview
+            </span>
+
+        </div>
+
+
+        <div class="topbar-right">
+
+
+            <!-- Notification -->
+
+            <button class="notification-btn">
+
+                ♢
+
+                <span class="notification-dot">
+                </span>
+
+            </button>
+
+
+            <!-- Profile -->
+
+            <div class="profile">
+
+                <div class="profile-avatar">
+                    N
+                </div>
+
+                <div class="profile-info">
+
+                    <strong>
+                        Niranjana
+                    </strong>
+
+                    <span>
+                        Student
+                    </span>
+
+                </div>
+
+                <span class="profile-arrow">
+                    ▾
+                </span>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================= DASHBOARD ================= -->
+
+    <div class="dashboard-container">
+
+
+        <!-- ================= WELCOME ================= -->
+
+        <section class="welcome-section">
+
+
+            <div>
+
+                <span class="welcome-tag">
+                    YOUR DASHBOARD
+                </span>
+
+                <h1>
+                    Good evening,
+                    <span>Niranjana!</span>
+                    👋
+                </h1>
+
+                <p>
+                    Keep going! Every small step takes you
+                    closer to your career goals.
+                </p>
+
+            </div>
+
+
+            <div class="date-card">
+
+                <span>
+                    TODAY
+                </span>
+
+                <strong id="currentDate">
+                    September 17, 2026
+                </strong>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- ================= STAT CARDS ================= -->
+
+        <section class="stats-grid">
+
+
+            <!-- DSA -->
+
+            <div class="stat-card">
+
+                <div class="stat-card-top">
+
+                    <div class="stat-icon blue">
+                        ◈
+                    </div>
+
+                    <span class="stat-change">
+                        +8%
+                    </span>
+
+                </div>
+
+                <div class="stat-number"
+                     data-target="42">
+                    0
+                </div>
+
+                <div class="stat-label">
+                    DSA Problems Solved
+                </div>
+
+                <div class="stat-footer">
+
+                    <span>
+                        This month
+                    </span>
+
+                    <span class="up">
+                        ↑ Improving
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- Jobs -->
+
+            <div class="stat-card">
+
+                <div class="stat-card-top">
+
+                    <div class="stat-icon purple">
+                        💼
+                    </div>
+
+                    <span class="stat-change">
+                        +3
+                    </span>
+
+                </div>
+
+                <div class="stat-number"
+                     data-target="12">
+                    0
+                </div>
+
+                <div class="stat-label">
+                    Job Applications
+                </div>
+
+                <div class="stat-footer">
+
+                    <span>
+                        Total applications
+                    </span>
+
+                    <span class="up">
+                        Active
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- Skills -->
+
+            <div class="stat-card">
+
+                <div class="stat-card-top">
+
+                    <div class="stat-icon green">
+                        🎯
+                    </div>
+
+                    <span class="stat-change">
+                        +2
+                    </span>
+
+                </div>
+
+                <div class="stat-number"
+                     data-target="8">
+                    0
+                </div>
+
+                <div class="stat-label">
+                    Skills Tracked
+                </div>
+
+                <div class="stat-footer">
+
+                    <span>
+                        Technical skills
+                    </span>
+
+                    <span class="up">
+                        Growing
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- Tasks -->
+
+            <div class="stat-card">
+
+                <div class="stat-card-top">
+
+                    <div class="stat-icon orange">
+                        ✓
+                    </div>
+
+                    <span class="stat-change">
+                        72%
+                    </span>
+
+                </div>
+
+                <div class="stat-number"
+                     data-target="18">
+                    0
+                </div>
+
+                <div class="stat-label">
+                    Tasks Completed
+                </div>
+
+                <div class="stat-footer">
+
+                    <span>
+                        This month
+                    </span>
+
+                    <span class="up">
+                        On track
+                    </span>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- ================= MAIN GRID ================= -->
+
+        <section class="content-grid">
+
+
+            <!-- ================= PROGRESS ================= -->
+
+            <div class="dashboard-card progress-card">
+
+
+                <div class="card-header">
+
+                    <div>
+
+                        <span class="card-label">
+                            PREPARATION
+                        </span>
+
+                        <h2>
+                            Overall Progress
+                        </h2>
+
+                    </div>
+
+                    <button class="more-btn">
+                        •••
+                    </button>
+
+                </div>
+
+
+                <div class="overall-progress">
+
+
+                    <div class="progress-ring">
+
+                        <div class="progress-ring-inner">
+
+                            <strong>
+                                78%
+                            </strong>
+
+                            <span>
+                                Overall
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="progress-details">
+
+
+                        <div class="detail-item">
+
+                            <div class="detail-label">
+
+                                <span>
+                                    DSA Preparation
+                                </span>
+
+                                <strong>
+                                    75%
+                                </strong>
+
+                            </div>
+
+                            <div class="detail-bar">
+
+                                <span
+                                    style="width: 75%">
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="detail-item">
+
+                            <div class="detail-label">
+
+                                <span>
+                                    Technical Skills
+                                </span>
+
+                                <strong>
+                                    82%
+                                </strong>
+
+                            </div>
+
+                            <div class="detail-bar">
+
+                                <span
+                                    style="width: 82%">
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="detail-item">
+
+                            <div class="detail-label">
+
+                                <span>
+                                    Job Applications
+                                </span>
+
+                                <strong>
+                                    60%
+                                </strong>
+
+                            </div>
+
+                            <div class="detail-bar">
+
+                                <span
+                                    style="width: 60%">
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="detail-item">
+
+                            <div class="detail-label">
+
+                                <span>
+                                    Study Consistency
+                                </span>
+
+                                <strong>
+                                    85%
+                                </strong>
+
+                            </div>
+
+                            <div class="detail-bar">
+
+                                <span
+                                    style="width: 85%">
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+                <div class="progress-message">
+
+                    <span class="message-icon">
+                        ✦
+                    </span>
+
+                    <p>
+                        You're making great progress.
+                        Keep your daily preparation consistent!
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- ================= WEEKLY ACTIVITY ================= -->
+
+            <div class="dashboard-card activity-card">
+
+
+                <div class="card-header">
+
+                    <div>
+
+                        <span class="card-label">
+                            ACTIVITY
+                        </span>
+
+                        <h2>
+                            Weekly Activity
+                        </h2>
+
+                    </div>
+
+                    <span class="this-week">
+                        This week
+                    </span>
+
+                </div>
+
+
+                <div class="activity-chart">
+
+
+                    <div class="chart-y">
+
+                        <span>
+                            10
+                        </span>
+
+                        <span>
+                            8
+                        </span>
+
+                        <span>
+                            6
+                        </span>
+
+                        <span>
+                            4
+                        </span>
+
+                        <span>
+                            2
+                        </span>
+
+                        <span>
+                            0
+                        </span>
+
+                    </div>
+
+
+                    <div class="chart-content">
+
+
+                        <div class="chart-grid-line line-10"></div>
+
+                        <div class="chart-grid-line line-8"></div>
+
+                        <div class="chart-grid-line line-6"></div>
+
+                        <div class="chart-grid-line line-4"></div>
+
+                        <div class="chart-grid-line line-2"></div>
+
+
+                        <div class="bars">
+
+
+                            <div class="bar-wrapper">
+
+                                <div
+                                    class="bar"
+                                    style="height: 45%">
+                                </div>
+
+                                <span>
+                                    Mon
+                                </span>
+
+                            </div>
+
+
+                            <div class="bar-wrapper">
+
+                                <div
+                                    class="bar"
+                                    style="height: 65%">
+                                </div>
+
+                                <span>
+                                    Tue
+                                </span>
+
+                            </div>
+
+
+                            <div class="bar-wrapper">
+
+                                <div
+                                    class="bar"
+                                    style="height: 55%">
+                                </div>
+
+                                <span>
+                                    Wed
+                                </span>
+
+                            </div>
+
+
+                            <div class="bar-wrapper">
+
+                                <div
+                                    class="bar"
+                                    style="height: 80%">
+                                </div>
+
+                                <span>
+                                    Thu
+                                </span>
+
+                            </div>
+
+
+                            <div class="bar-wrapper">
+
+                                <div
+                                    class="bar"
+                                    style="height: 70%">
+                                </div>
+
+                                <span>
+                                    Fri
+                                </span>
+
+                            </div>
+
+
+                            <div class="bar-wrapper">
+
+                                <div
+                                    class="bar"
+                                    style="height: 40%">
+                                </div>
+
+                                <span>
+                                    Sat
+                                </span>
+
+                            </div>
+
+
+                            <div class="bar-wrapper">
+
+                                <div
+                                    class="bar today"
+                                    style="height: 60%">
+                                </div>
+
+                                <span>
+                                    Sun
+                                </span>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- ================= LOWER GRID ================= -->
+
+        <section class="lower-grid">
+
+
+            <!-- ================= RECENT ACTIVITY ================= -->
+
+            <div class="dashboard-card">
+
+
+                <div class="card-header">
+
+                    <div>
+
+                        <span class="card-label">
+                            RECENT
+                        </span>
+
+                        <h2>
+                            Recent Activity
+                        </h2>
+
+                    </div>
+
+                    <a href="#"
+                       class="view-link">
+                        View all →
+                    </a>
+
+                </div>
+
+
+                <div class="activity-list">
+
+
+                    <div class="activity-item">
+
+                        <div class="activity-icon blue-bg">
+                            ✓
+                        </div>
+
+                        <div class="activity-text">
+
+                            <strong>
+                                Solved Two Sum
+                            </strong>
+
+                            <span>
+                                Arrays • Easy
+                            </span>
+
+                        </div>
+
+                        <span class="activity-time">
+                            2h ago
+                        </span>
+
+                    </div>
+
+
+                    <div class="activity-item">
+
+                        <div class="activity-icon green-bg">
+                            ✓
+                        </div>
+
+                        <div class="activity-text">
+
+                            <strong>
+                                Completed Java revision
+                            </strong>
+
+                            <span>
+                                Technical Skills
+                            </span>
+
+                        </div>
+
+                        <span class="activity-time">
+                            5h ago
+                        </span>
+
+                    </div>
+
+
+                    <div class="activity-item">
+
+                        <div class="activity-icon purple-bg">
+                            +
+                        </div>
+
+                        <div class="activity-text">
+
+                            <strong>
+                                Added Java skill
+                            </strong>
+
+                            <span>
+                                Skills Tracker
+                            </span>
+
+                        </div>
+
+                        <span class="activity-time">
+                            Yesterday
+                        </span>
+
+                    </div>
+
+
+                    <div class="activity-item">
+
+                        <div class="activity-icon orange-bg">
+                            →
+                        </div>
+
+                        <div class="activity-text">
+
+                            <strong>
+                                Applied to Software Intern
+                            </strong>
+
+                            <span>
+                                Job Tracker
+                            </span>
+
+                        </div>
+
+                        <span class="activity-time">
+                            Yesterday
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= TODAY'S TASKS ================= -->
+
+            <div class="dashboard-card tasks-card">
+
+
+                <div class="card-header">
+
+                    <div>
+
+                        <span class="card-label">
+                            TODAY
+                        </span>
+
+                        <h2>
+                            Today's Tasks
+                        </h2>
+
+                    </div>
+
+                    <span class="task-count">
+                        3 / 5
+                    </span>
+
+                </div>
+
+
+                <div class="task-list">
+
+
+                    <label class="task-item completed">
+
+                        <input
+                            type="checkbox"
+                            checked
+                        >
+
+                        <span class="custom-checkbox">
+                            ✓
+                        </span>
+
+                        <span class="task-name">
+                            Solve 2 DSA problems
+                        </span>
+
+                    </label>
+
+
+                    <label class="task-item completed">
+
+                        <input
+                            type="checkbox"
+                            checked
+                        >
+
+                        <span class="custom-checkbox">
+                            ✓
+                        </span>
+
+                        <span class="task-name">
+                            Revise Java OOP
+                        </span>
+
+                    </label>
+
+
+                    <label class="task-item completed">
+
+                        <input
+                            type="checkbox"
+                            checked
+                        >
+
+                        <span class="custom-checkbox">
+                            ✓
+                        </span>
+
+                        <span class="task-name">
+                            Practice SQL queries
+                        </span>
+
+                    </label>
+
+
+                    <label class="task-item">
+
+                        <input
+                            type="checkbox"
+                        >
+
+                        <span class="custom-checkbox">
+                        </span>
+
+                        <span class="task-name">
+                            Practice aptitude
+                        </span>
+
+                    </label>
+
+
+                    <label class="task-item">
+
+                        <input
+                            type="checkbox"
+                        >
+
+                        <span class="custom-checkbox">
+                        </span>
+
+                        <span class="task-name">
+                            Apply for one internship
+                        </span>
+
+                    </label>
+
+
+                </div>
+
+
+                <a href="#"
+                   class="add-task">
+
+                    + Add new task
+
+                </a>
+
+
+            </div>
+
+
+        </section>
+
+
+    </div>
+
+
+</main>
+
+
+<script src="js/dashboard.js"></script>
+
+</body>
+
+</html>
