@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>CareerTrack - DSA Tracker</title>
+
+    <link rel="stylesheet" href="css/dsa.css">
+
+</head>
+
+<body>
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            <span>Career</span>Track
+        </div>
+
+        <nav>
+
+            <a href="dashboard.html">
+                📊 Dashboard
+            </a>
+
+            <a href="dsa.html" class="active">
+                🧠 DSA Tracker
+            </a>
+
+            <a href="#">
+                💼 Job Tracker
+            </a>
+
+            <a href="#">
+                🛠️ Skills
+            </a>
+
+            <a href="#">
+                📚 Study Planner
+            </a>
+
+            <a href="#">
+                ⚙️ Settings
+            </a>
+
+        </nav>
+
+        <a href="login.html" class="logout">
+            🚪 Logout
+        </a>
+
+    </aside>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="main">
+
+        <header class="topbar">
+
+            <div>
+
+                <h2>DSA Tracker</h2>
+
+                <p>
+                    Track your coding practice and placement preparation.
+                </p>
+
+            </div>
+
+            <div class="profile">
+
+                <div class="avatar">
+                    N
+                </div>
+
+                <div>
+                    <strong>Niranjana</strong>
+                    <small>Student</small>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- ================= CONTENT ================= -->
+
+        <section class="content">
+
+
+            <!-- PAGE HEADER -->
+
+            <div class="page-header">
+
+                <div>
+
+                    <span class="tag">
+                        PLACEMENT PREPARATION
+                    </span>
+
+                    <h1>
+                        Master DSA one problem at a time 🚀
+                    </h1>
+
+                    <p>
+                        Keep track of the problems you solve
+                        and build consistency every day.
+                    </p>
+
+                </div>
+
+                <button
+                    class="add-btn"
+                    id="openModal">
+
+                    + Add Problem
+
+                </button>
+
+            </div>
+
+
+            <!-- ================= STATS ================= -->
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+
+                    <div class="icon blue">
+                        🧠
+                    </div>
+
+                    <div>
+                        <p>Total Problems</p>
+
+                        <h2 id="totalProblems">
+                            0
+                        </h2>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="icon green">
+                        ✅
+                    </div>
+
+                    <div>
+                        <p>Solved</p>
+
+                        <h2 id="solvedProblems">
+                            0
+                        </h2>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="icon orange">
+                        ⏳
+                    </div>
+
+                    <div>
+                        <p>In Progress</p>
+
+                        <h2 id="progressProblems">
+                            0
+                        </h2>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="icon purple">
+                        📈
+                    </div>
+
+                    <div>
+                        <p>Completion</p>
+
+                        <h2 id="completion">
+                            0%
+                        </h2>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= PROGRESS ================= -->
+
+            <div class="card progress-card">
+
+                <div class="card-title">
+
+                    <div>
+                        <h2>DSA Progress</h2>
+
+                        <p>
+                            Your overall problem-solving progress
+                        </p>
+                    </div>
+
+                    <strong id="progressPercent">
+                        0%
+                    </strong>
+
+                </div>
+
+                <div class="progress-track">
+
+                    <div
+                        class="progress-fill"
+                        id="progressFill">
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= FILTERS ================= -->
+
+            <div class="card">
+
+                <div class="filter-header">
+
+                    <div>
+
+                        <h2>Problem List</h2>
+
+                        <p>
+                            Search and manage your DSA problems.
+                        </p>
+
+                    </div>
+
+                    <input
+                        type="text"
+                        id="searchInput"
+                        placeholder="🔎 Search problems...">
+
+                </div>
+
+
+                <div class="filters">
+
+                    <button
+                        class="filter active"
+                        data-filter="all">
+
+                        All
+
+                    </button>
+
+                    <button
+                        class="filter"
+                        data-filter="Easy">
+
+                        Easy
+
+                    </button>
+
+                    <button
+                        class="filter"
+                        data-filter="Medium">
+
+                        Medium
+
+                    </button>
+
+                    <button
+                        class="filter"
+                        data-filter="Hard">
+
+                        Hard
+
+                    </button>
+
+                    <button
+                        class="filter"
+                        data-filter="Solved">
+
+                        Solved
+
+                    </button>
+
+                </div>
+
+
+                <!-- PROBLEMS -->
+
+                <div id="problemList"
+                     class="problem-list">
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ================= MODAL ================= -->
+
+    <div class="modal" id="modal">
+
+        <div class="modal-box">
+
+            <button
+                class="close-btn"
+                id="closeModal">
+
+                ×
+
+            </button>
+
+            <h2>Add DSA Problem</h2>
+
+            <p>
+                Add a problem to your tracker.
+            </p>
+
+
+            <form id="problemForm">
+
+                <label>
+                    Problem Name
+                </label>
+
+                <input
+                    type="text"
+                    id="problemName"
+                    placeholder="Example: Binary Search"
+                    required>
+
+
+                <label>
+                    Topic
+                </label>
+
+                <input
+                    type="text"
+                    id="problemTopic"
+                    placeholder="Example: Searching"
+                    required>
+
+
+                <label>
+                    Difficulty
+                </label>
+
+                <select id="problemDifficulty">
+
+                    <option value="Easy">
+                        Easy
+                    </option>
+
+                    <option value="Medium">
+                        Medium
+                    </option>
+
+                    <option value="Hard">
+                        Hard
+                    </option>
+
+                </select>
+
+
+                <button
+                    type="submit"
+                    class="save-btn">
+
+                    Add Problem
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <script src="js/dsa.js"></script>
+
+</body>
+
+</html>
