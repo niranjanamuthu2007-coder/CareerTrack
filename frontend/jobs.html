@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>CareerTrack - Job Tracker</title>
+
+    <link rel="stylesheet" href="css/jobs.css">
+
+</head>
+
+<body>
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            <span>Career</span>Track
+        </div>
+
+        <nav>
+
+            <a href="dashboard.html">
+                📊 Dashboard
+            </a>
+
+            <a href="dsa.html">
+                🧠 DSA Tracker
+            </a>
+
+            <a href="jobs.html" class="active">
+                💼 Job Tracker
+            </a>
+
+            <a href="#">
+                🛠️ Skills
+            </a>
+
+            <a href="#">
+                📚 Study Planner
+            </a>
+
+            <a href="#">
+                ⚙️ Settings
+            </a>
+
+        </nav>
+
+        <a href="login.html" class="logout">
+            🚪 Logout
+        </a>
+
+    </aside>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="main">
+
+        <header class="topbar">
+
+            <div>
+
+                <h2>Job Tracker</h2>
+
+                <p>
+                    Track your internship and placement applications.
+                </p>
+
+            </div>
+
+            <div class="profile">
+
+                <div class="avatar">
+                    N
+                </div>
+
+                <div>
+                    <strong>Niranjana</strong>
+                    <small>Student</small>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- ================= CONTENT ================= -->
+
+        <section class="content">
+
+            <!-- PAGE HEADER -->
+
+            <div class="page-header">
+
+                <div>
+
+                    <span class="tag">
+                        CAREER OPPORTUNITIES
+                    </span>
+
+                    <h1>
+                        Keep your applications organized 💼
+                    </h1>
+
+                    <p>
+                        Track every application and stay prepared
+                        for your next opportunity.
+                    </p>
+
+                </div>
+
+                <button
+                    class="add-btn"
+                    id="openModal">
+
+                    + Add Application
+
+                </button>
+
+            </div>
+
+
+            <!-- ================= STATS ================= -->
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+
+                    <div class="icon blue">
+                        📋
+                    </div>
+
+                    <div>
+
+                        <p>Total Applications</p>
+
+                        <h2 id="totalApplications">
+                            0
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="icon yellow">
+                        📤
+                    </div>
+
+                    <div>
+
+                        <p>Applied</p>
+
+                        <h2 id="appliedCount">
+                            0
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="icon purple">
+                        🎤
+                    </div>
+
+                    <div>
+
+                        <p>Interviews</p>
+
+                        <h2 id="interviewCount">
+                            0
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="icon green">
+                        🎉
+                    </div>
+
+                    <div>
+
+                        <p>Selected</p>
+
+                        <h2 id="selectedCount">
+                            0
+                        </h2>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= APPLICATIONS ================= -->
+
+            <div class="card">
+
+                <div class="filter-header">
+
+                    <div>
+
+                        <h2>Applications</h2>
+
+                        <p>
+                            Search and manage your applications.
+                        </p>
+
+                    </div>
+
+                    <input
+                        type="text"
+                        id="searchInput"
+                        placeholder="🔎 Search company or role...">
+
+                </div>
+
+
+                <!-- FILTERS -->
+
+                <div class="filters">
+
+                    <button
+                        class="filter active"
+                        data-filter="All">
+
+                        All
+
+                    </button>
+
+                    <button
+                        class="filter"
+                        data-filter="Applied">
+
+                        Applied
+
+                    </button>
+
+                    <button
+                        class="filter"
+                        data-filter="Interview">
+
+                        Interview
+
+                    </button>
+
+                    <button
+                        class="filter"
+                        data-filter="Selected">
+
+                        Selected
+
+                    </button>
+
+                    <button
+                        class="filter"
+                        data-filter="Rejected">
+
+                        Rejected
+
+                    </button>
+
+                </div>
+
+
+                <!-- TABLE HEADER -->
+
+                <div class="application-header">
+
+                    <span>Company</span>
+
+                    <span>Position</span>
+
+                    <span>Location</span>
+
+                    <span>Date</span>
+
+                    <span>Status</span>
+
+                    <span>Action</span>
+
+                </div>
+
+
+                <!-- APPLICATION LIST -->
+
+                <div
+                    id="applicationList"
+                    class="application-list">
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ================= MODAL ================= -->
+
+    <div class="modal" id="modal">
+
+        <div class="modal-box">
+
+            <button
+                class="close-btn"
+                id="closeModal">
+
+                ×
+
+            </button>
+
+            <h2>Add Job Application</h2>
+
+            <p>
+                Add a new internship or job application.
+            </p>
+
+
+            <form id="jobForm">
+
+                <label>
+                    Company
+                </label>
+
+                <input
+                    type="text"
+                    id="company"
+                    placeholder="Example: Google"
+                    required>
+
+
+                <label>
+                    Position</label>
+
+                <input
+                    type="text"
+                    id="position"
+                    placeholder="Example: Software Engineer Intern"
+                    required>
+
+
+                <label>
+                    Location
+                </label>
+
+                <input
+                    type="text"
+                    id="location"
+                    placeholder="Example: Bangalore / Remote"
+                    required>
+
+
+                <label>
+                    Application Date
+                </label>
+
+                <input
+                    type="date"
+                    id="applicationDate"
+                    required>
+
+
+                <label>
+                    Status
+                </label>
+
+                <select id="status">
+
+                    <option value="Applied">
+                        Applied
+                    </option>
+
+                    <option value="Interview">
+                        Interview
+                    </option>
+
+                    <option value="Selected">
+                        Selected
+                    </option>
+
+                    <option value="Rejected">
+                        Rejected
+                    </option>
+
+                </select>
+
+
+                <button
+                    type="submit"
+                    class="save-btn">
+
+                    Add Application
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <script src="js/jobs.js"></script>
+
+</body>
+
+</html>
