@@ -8,9 +8,9 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>CareerTrack - DSA Tracker</title>
+    <title>CareerTrack - Skills Tracker</title>
 
-    <link rel="stylesheet" href="css/dsa.css">
+    <link rel="stylesheet" href="css/skills.css">
 
 </head>
 
@@ -30,7 +30,7 @@
                 📊 Dashboard
             </a>
 
-            <a href="dsa.html" class="active">
+            <a href="dsa.html">
                 🧠 DSA Tracker
             </a>
 
@@ -38,8 +38,8 @@
                 💼 Job Tracker
             </a>
 
-            <a href="skills.html">
-            🛠️ Skills
+            <a href="skills.html" class="active">
+                🛠️ Skills
             </a>
 
             <a href="#">
@@ -67,10 +67,10 @@
 
             <div>
 
-                <h2>DSA Tracker</h2>
+                <h2>Skills Tracker</h2>
 
                 <p>
-                    Track your coding practice and placement preparation.
+                    Track your technical skills and placement readiness.
                 </p>
 
             </div>
@@ -82,8 +82,13 @@
                 </div>
 
                 <div>
+
                     <strong>Niranjana</strong>
-                    <small>Student</small>
+
+                    <small>
+                        Student
+                    </small>
+
                 </div>
 
             </div>
@@ -103,25 +108,26 @@
                 <div>
 
                     <span class="tag">
-                        PLACEMENT PREPARATION
+                        TECHNICAL SKILLS
                     </span>
 
                     <h1>
-                        Master DSA one problem at a time 🚀
+                        Build skills that move your career forward 🚀
                     </h1>
 
                     <p>
-                        Keep track of the problems you solve
-                        and build consistency every day.
+                        Track what you know, improve what you don't,
+                        and prepare for placements.
                     </p>
 
                 </div>
+
 
                 <button
                     class="add-btn"
                     id="openModal">
 
-                    + Add Problem
+                    + Add Skill
 
                 </button>
 
@@ -135,15 +141,17 @@
                 <div class="stat-card">
 
                     <div class="icon blue">
-                        🧠
+                        🛠️
                     </div>
 
                     <div>
-                        <p>Total Problems</p>
 
-                        <h2 id="totalProblems">
+                        <p>Total Skills</p>
+
+                        <h2 id="totalSkills">
                             0
                         </h2>
+
                     </div>
 
                 </div>
@@ -152,15 +160,17 @@
                 <div class="stat-card">
 
                     <div class="icon green">
-                        ✅
+                        ⭐
                     </div>
 
                     <div>
-                        <p>Solved</p>
 
-                        <h2 id="solvedProblems">
+                        <p>Advanced</p>
+
+                        <h2 id="advancedSkills">
                             0
                         </h2>
+
                     </div>
 
                 </div>
@@ -169,15 +179,17 @@
                 <div class="stat-card">
 
                     <div class="icon orange">
-                        ⏳
+                        📚
                     </div>
 
                     <div>
-                        <p>In Progress</p>
 
-                        <h2 id="progressProblems">
+                        <p>Learning</p>
+
+                        <h2 id="learningSkills">
                             0
                         </h2>
+
                     </div>
 
                 </div>
@@ -190,11 +202,13 @@
                     </div>
 
                     <div>
-                        <p>Completion</p>
 
-                        <h2 id="completion">
+                        <p>Overall Progress</p>
+
+                        <h2 id="overallProgress">
                             0%
                         </h2>
+
                     </div>
 
                 </div>
@@ -202,31 +216,39 @@
             </div>
 
 
-            <!-- ================= PROGRESS ================= -->
+            <!-- ================= OVERALL PROGRESS ================= -->
 
-            <div class="card progress-card">
+            <div class="card overall-card">
 
-                <div class="card-title">
+                <div class="overall-header">
 
                     <div>
-                        <h2>DSA Progress</h2>
+
+                        <h2>
+                            Overall Skill Progress
+                        </h2>
 
                         <p>
-                            Your overall problem-solving progress
+                            Your average progress across all tracked skills.
                         </p>
+
                     </div>
 
-                    <strong id="progressPercent">
+                    <div class="overall-number"
+                         id="overallNumber">
+
                         0%
-                    </strong>
+
+                    </div>
 
                 </div>
+
 
                 <div class="progress-track">
 
                     <div
                         class="progress-fill"
-                        id="progressFill">
+                        id="overallFill">
                     </div>
 
                 </div>
@@ -234,7 +256,7 @@
             </div>
 
 
-            <!-- ================= FILTERS ================= -->
+            <!-- ================= SKILLS ================= -->
 
             <div class="card">
 
@@ -242,10 +264,12 @@
 
                     <div>
 
-                        <h2>Problem List</h2>
+                        <h2>
+                            My Skills
+                        </h2>
 
                         <p>
-                            Search and manage your DSA problems.
+                            Search and manage your technical skills.
                         </p>
 
                     </div>
@@ -253,16 +277,18 @@
                     <input
                         type="text"
                         id="searchInput"
-                        placeholder="🔎 Search problems...">
+                        placeholder="🔎 Search skills...">
 
                 </div>
 
+
+                <!-- FILTERS -->
 
                 <div class="filters">
 
                     <button
                         class="filter active"
-                        data-filter="all">
+                        data-filter="All">
 
                         All
 
@@ -270,43 +296,36 @@
 
                     <button
                         class="filter"
-                        data-filter="Easy">
+                        data-filter="Advanced">
 
-                        Easy
-
-                    </button>
-
-                    <button
-                        class="filter"
-                        data-filter="Medium">
-
-                        Medium
+                        Advanced
 
                     </button>
 
                     <button
                         class="filter"
-                        data-filter="Hard">
+                        data-filter="Intermediate">
 
-                        Hard
+                        Intermediate
 
                     </button>
 
                     <button
                         class="filter"
-                        data-filter="Solved">
+                        data-filter="Beginner">
 
-                        Solved
+                        Beginner
 
                     </button>
 
                 </div>
 
 
-                <!-- PROBLEMS -->
+                <!-- SKILL LIST -->
 
-                <div id="problemList"
-                     class="problem-list">
+                <div
+                    id="skillList"
+                    class="skill-list">
                 </div>
 
             </div>
@@ -330,63 +349,74 @@
 
             </button>
 
-            <h2>Add DSA Problem</h2>
+            <h2>
+                Add Skill
+            </h2>
 
             <p>
-                Add a problem to your tracker.
+                Add a technical skill to your tracker.
             </p>
 
 
-            <form id="problemForm">
+            <form id="skillForm">
 
                 <label>
-                    Problem Name
+                    Skill Name
                 </label>
 
                 <input
                     type="text"
-                    id="problemName"
-                    placeholder="Example: Binary Search"
+                    id="skillName"
+                    placeholder="Example: Java"
                     required>
 
 
                 <label>
-                    Topic
+                    Category
                 </label>
 
-                <input
-                    type="text"
-                    id="problemTopic"
-                    placeholder="Example: Searching"
-                    required>
+                <select id="skillCategory">
 
-
-                <label>
-                    Difficulty
-                </label>
-
-                <select id="problemDifficulty">
-
-                    <option value="Easy">
-                        Easy
+                    <option value="Programming">
+                        Programming
                     </option>
 
-                    <option value="Medium">
-                        Medium
+                    <option value="Web Development">
+                        Web Development
                     </option>
 
-                    <option value="Hard">
-                        Hard
+                    <option value="Database">
+                        Database
+                    </option>
+
+                    <option value="Tools">
+                        Tools
+                    </option>
+
+                    <option value="Other">
+                        Other
                     </option>
 
                 </select>
+
+
+                <label>
+                    Progress: <span id="progressValue">50</span>%
+                </label>
+
+                <input
+                    type="range"
+                    id="skillProgress"
+                    min="0"
+                    max="100"
+                    value="50">
 
 
                 <button
                     type="submit"
                     class="save-btn">
 
-                    Add Problem
+                    Add Skill
 
                 </button>
 
@@ -397,7 +427,7 @@
     </div>
 
 
-    <script src="js/dsa.js"></script>
+    <script src="js/skills.js"></script>
 
 </body>
 
