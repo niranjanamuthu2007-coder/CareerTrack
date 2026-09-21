@@ -8,9 +8,9 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>CareerTrack - DSA Tracker</title>
+    <title>CareerTrack - Study Planner</title>
 
-    <link rel="stylesheet" href="css/dsa.css">
+    <link rel="stylesheet" href="css/study.css">
 
 </head>
 
@@ -30,7 +30,7 @@
                 📊 Dashboard
             </a>
 
-            <a href="dsa.html" class="active">
+            <a href="dsa.html">
                 🧠 DSA Tracker
             </a>
 
@@ -39,10 +39,10 @@
             </a>
 
             <a href="skills.html">
-            🛠️ Skills
+                🛠️ Skills
             </a>
 
-            <a href="study.html">
+            <a href="study.html" class="active">
                 📚 Study Planner
             </a>
 
@@ -67,10 +67,10 @@
 
             <div>
 
-                <h2>DSA Tracker</h2>
+                <h2>Study Planner</h2>
 
                 <p>
-                    Track your coding practice and placement preparation.
+                    Organize your daily learning and placement preparation.
                 </p>
 
             </div>
@@ -82,8 +82,13 @@
                 </div>
 
                 <div>
+
                     <strong>Niranjana</strong>
-                    <small>Student</small>
+
+                    <small>
+                        Student
+                    </small>
+
                 </div>
 
             </div>
@@ -103,25 +108,26 @@
                 <div>
 
                     <span class="tag">
-                        PLACEMENT PREPARATION
+                        STUDY & PLACEMENT PREPARATION
                     </span>
 
                     <h1>
-                        Master DSA one problem at a time 🚀
+                        Plan your learning, one day at a time 📚
                     </h1>
 
                     <p>
-                        Keep track of the problems you solve
-                        and build consistency every day.
+                        Organize DSA, Java, aptitude and other
+                        placement preparation tasks.
                     </p>
 
                 </div>
+
 
                 <button
                     class="add-btn"
                     id="openModal">
 
-                    + Add Problem
+                    + Add Task
 
                 </button>
 
@@ -135,32 +141,17 @@
                 <div class="stat-card">
 
                     <div class="icon blue">
-                        🧠
+                        📋
                     </div>
 
                     <div>
-                        <p>Total Problems</p>
 
-                        <h2 id="totalProblems">
+                        <p>Total Tasks</p>
+
+                        <h2 id="totalTasks">
                             0
                         </h2>
-                    </div>
 
-                </div>
-
-
-                <div class="stat-card">
-
-                    <div class="icon green">
-                        ✅
-                    </div>
-
-                    <div>
-                        <p>Solved</p>
-
-                        <h2 id="solvedProblems">
-                            0
-                        </h2>
                     </div>
 
                 </div>
@@ -173,11 +164,32 @@
                     </div>
 
                     <div>
-                        <p>In Progress</p>
 
-                        <h2 id="progressProblems">
+                        <p>Pending</p>
+
+                        <h2 id="pendingTasks">
                             0
                         </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="icon green">
+                        ✅
+                    </div>
+
+                    <div>
+
+                        <p>Completed</p>
+
+                        <h2 id="completedTasks">
+                            0
+                        </h2>
+
                     </div>
 
                 </div>
@@ -190,11 +202,13 @@
                     </div>
 
                     <div>
+
                         <p>Completion</p>
 
                         <h2 id="completion">
                             0%
                         </h2>
+
                     </div>
 
                 </div>
@@ -206,14 +220,18 @@
 
             <div class="card progress-card">
 
-                <div class="card-title">
+                <div class="progress-header">
 
                     <div>
-                        <h2>DSA Progress</h2>
+
+                        <h2>
+                            Today's Progress
+                        </h2>
 
                         <p>
-                            Your overall problem-solving progress
+                            Complete your planned tasks.
                         </p>
+
                     </div>
 
                     <strong id="progressPercent">
@@ -221,6 +239,7 @@
                     </strong>
 
                 </div>
+
 
                 <div class="progress-track">
 
@@ -234,7 +253,7 @@
             </div>
 
 
-            <!-- ================= FILTERS ================= -->
+            <!-- ================= TASK LIST ================= -->
 
             <div class="card">
 
@@ -242,10 +261,12 @@
 
                     <div>
 
-                        <h2>Problem List</h2>
+                        <h2>
+                            Study Tasks
+                        </h2>
 
                         <p>
-                            Search and manage your DSA problems.
+                            Manage your daily learning activities.
                         </p>
 
                     </div>
@@ -253,16 +274,18 @@
                     <input
                         type="text"
                         id="searchInput"
-                        placeholder="🔎 Search problems...">
+                        placeholder="🔎 Search tasks...">
 
                 </div>
 
+
+                <!-- FILTERS -->
 
                 <div class="filters">
 
                     <button
                         class="filter active"
-                        data-filter="all">
+                        data-filter="All">
 
                         All
 
@@ -270,43 +293,28 @@
 
                     <button
                         class="filter"
-                        data-filter="Easy">
+                        data-filter="Pending">
 
-                        Easy
-
-                    </button>
-
-                    <button
-                        class="filter"
-                        data-filter="Medium">
-
-                        Medium
+                        Pending
 
                     </button>
 
                     <button
                         class="filter"
-                        data-filter="Hard">
+                        data-filter="Completed">
 
-                        Hard
-
-                    </button>
-
-                    <button
-                        class="filter"
-                        data-filter="Solved">
-
-                        Solved
+                        Completed
 
                     </button>
 
                 </div>
 
 
-                <!-- PROBLEMS -->
+                <!-- TASK LIST -->
 
-                <div id="problemList"
-                     class="problem-list">
+                <div
+                    id="taskList"
+                    class="task-list">
                 </div>
 
             </div>
@@ -330,63 +338,97 @@
 
             </button>
 
-            <h2>Add DSA Problem</h2>
+            <h2>
+                Add Study Task
+            </h2>
 
             <p>
-                Add a problem to your tracker.
+                Create a new learning task.
             </p>
 
 
-            <form id="problemForm">
+            <form id="taskForm">
 
                 <label>
-                    Problem Name
+                    Task
                 </label>
 
                 <input
                     type="text"
-                    id="problemName"
-                    placeholder="Example: Binary Search"
+                    id="taskName"
+                    placeholder="Example: Solve 3 array problems"
                     required>
 
 
                 <label>
-                    Topic
+                    Category
                 </label>
 
-                <input
-                    type="text"
-                    id="problemTopic"
-                    placeholder="Example: Searching"
-                    required>
+                <select id="taskCategory">
+
+                    <option value="DSA">
+                        DSA
+                    </option>
+
+                    <option value="Java">
+                        Java
+                    </option>
+
+                    <option value="Aptitude">
+                        Aptitude
+                    </option>
+
+                    <option value="Web Development">
+                        Web Development
+                    </option>
+
+                    <option value="Placement">
+                        Placement
+                    </option>
+
+                    <option value="Other">
+                        Other
+                    </option>
+
+                </select>
 
 
                 <label>
-                    Difficulty
+                    Priority
                 </label>
 
-                <select id="problemDifficulty">
+                <select id="taskPriority">
 
-                    <option value="Easy">
-                        Easy
+                    <option value="High">
+                        High
                     </option>
 
                     <option value="Medium">
                         Medium
                     </option>
 
-                    <option value="Hard">
-                        Hard
+                    <option value="Low">
+                        Low
                     </option>
 
                 </select>
+
+
+                <label>
+                    Due Date
+                </label>
+
+                <input
+                    type="date"
+                    id="taskDate"
+                    required>
 
 
                 <button
                     type="submit"
                     class="save-btn">
 
-                    Add Problem
+                    Add Task
 
                 </button>
 
@@ -397,7 +439,7 @@
     </div>
 
 
-    <script src="js/dsa.js"></script>
+    <script src="js/study.js"></script>
 
 </body>
 
