@@ -1,119 +1,77 @@
-// ================= DEFAULT APPLICATIONS =================
+// ================= API CONFIGURATION =================
 
-const defaultApplications = [
+const API_URL = "http://localhost:8080/api/jobs";
 
-    {
-        id: 1,
-        company: "Google",
-        position: "Software Engineer Intern",
-        location: "Bangalore",
-        date: "2026-09-10",
-        status: "Applied"
-    },
-
-    {
-        id: 2,
-        company: "Microsoft",
-        position: "Software Development Intern",
-        location: "Hyderabad",
-        date: "2026-09-08",
-        status: "Interview"
-    },
-
-    {
-        id: 3,
-        company: "Amazon",
-        position: "SDE Intern",
-        location: "Chennai",
-        date: "2026-09-05",
-        status: "Applied"
-    },
-
-    {
-        id: 4,
-        company: "Zoho",
-        position: "Java Developer Intern",
-        location: "Chennai",
-        date: "2026-09-01",
-        status: "Rejected"
-    },
-
-    {
-        id: 5,
-        company: "TCS",
-        position: "Graduate Engineer Trainee",
-        location: "Chennai",
-        date: "2026-08-28",
-        status: "Selected"
-    }
-
-];
+// Temporary user ID
+// Real authentication will provide this later on Day 12.
+const CURRENT_USER_ID = 1;
 
 
-// ================= LOAD DATA =================
+// ================= APPLICATION DATA =================
 
-let applications =
-    JSON.parse(
-        localStorage.getItem(
-            "careerTrackJobs"
-        )
-    ) || defaultApplications;
+let applications = [];
 
 
 // ================= ELEMENTS =================
 
 const applicationList =
-    document.getElementById(
-        "applicationList"
-    );
+    document.getElementById("applicationList");
 
 const totalApplications =
-    document.getElementById(
-        "totalApplications"
-    );
+    document.getElementById("totalApplications");
 
 const appliedCount =
-    document.getElementById(
-        "appliedCount"
-    );
+    document.getElementById("appliedCount");
 
 const interviewCount =
-    document.getElementById(
-        "interviewCount"
-    );
+    document.getElementById("interviewCount");
 
 const selectedCount =
-    document.getElementById(
-        "selectedCount"
-    );
+    document.getElementById("selectedCount");
 
 const searchInput =
-    document.getElementById(
-        "searchInput"
-    );
+    document.getElementById("searchInput");
 
 const filters =
-    document.querySelectorAll(
-        ".filter"
-    );
+    document.querySelectorAll(".filter");
 
 
 // Current filter
-
 let currentFilter = "All";
 
 
-// ================= SAVE =================
+// ================= LOAD APPLICATIONS =================
 
-function saveApplications() {
+async function loadApplications() {
 
-    localStorage.setItem(
-        "careerTrackJobs",
-        JSON.stringify(
-            applications
-        )
-    );
+    try {
 
+        const response = await fetch(API_URL);
+
+        if (!response.ok) {
+            throw new Error("Failed to load applications");
+        }
+
+        applications = await response.json();
+
+        updateStats();
+        displayApplications();
+
+        console.log(
+            "Applications loaded from PostgreSQL successfully!"
+        );
+
+    } catch (error) {
+
+        console.error("Error loading applications:", error);
+
+        applicationList.innerHTML = `
+            <div class="empty">
+                Unable to connect to backend.
+                Please make sure Spring Boot is running.
+            </div>
+        `;
+    }
 }
 
 
@@ -124,34 +82,27 @@ function updateStats() {
     totalApplications.textContent =
         applications.length;
 
-
     appliedCount.textContent =
         applications.filter(
             application =>
-                application.status ===
-                "Applied"
+                application.status === "Applied"
         ).length;
-
 
     interviewCount.textContent =
         applications.filter(
             application =>
-                application.status ===
-                "Interview"
+                application.status === "Interview"
         ).length;
-
 
     selectedCount.textContent =
         applications.filter(
             application =>
-                application.status ===
-                "Selected"
+                application.status === "Selected"
         ).length;
-
 }
 
 
-// ================= DISPLAY =================
+// ================= DISPLAY APPLICATIONS =================
 
 function displayApplications() {
 
@@ -160,40 +111,31 @@ function displayApplications() {
             .toLowerCase()
             .trim();
 
-
     const filtered =
-        applications.filter(
-            application => {
+        applications.filter(application => {
 
-                const matchesSearch =
-                    application.company
-                        .toLowerCase()
-                        .includes(searchText) ||
+            const matchesSearch =
+                application.company
+                    .toLowerCase()
+                    .includes(searchText) ||
 
-                    application.position
-                        .toLowerCase()
-                        .includes(searchText) ||
+                application.position
+                    .toLowerCase()
+                    .includes(searchText) ||
 
-                    application.location
-                        .toLowerCase()
-                        .includes(searchText);
+                (application.location || "")
+                    .toLowerCase()
+                    .includes(searchText);
 
+            const matchesFilter =
+                currentFilter === "All" ||
+                application.status === currentFilter;
 
-                const matchesFilter =
-                    currentFilter ===
-                    "All" ||
-
-                    application.status ===
-                    currentFilter;
-
-
-                return (
-                    matchesSearch &&
-                    matchesFilter
-                );
-
-            }
-        );
+            return (
+                matchesSearch &&
+                matchesFilter
+            );
+        });
 
 
     applicationList.innerHTML = "";
@@ -208,76 +150,50 @@ function displayApplications() {
         `;
 
         return;
-
     }
 
 
-    filtered.forEach(
-        application => {
+    filtered.forEach(application => {
 
-            const element =
-                document.createElement(
-                    "div"
-                );
+        const element =
+            document.createElement("div");
 
-
-            element.className =
-                "application";
+        element.className =
+            "application";
 
 
-            element.innerHTML = `
+        element.innerHTML = `
+            <div class="company-name">
+                ${application.company}
+            </div>
 
-                <div class="company-name">
-                    ${application.company}
-                </div>
+            <div class="position">
+                ${application.position}
+            </div>
 
+            <div class="location">
+                📍 ${application.location || "Not specified"}
+            </div>
 
-                <div class="position">
-                    ${application.position}
-                </div>
+            <div class="date">
+                ${formatDate(application.applicationDate)}
+            </div>
 
+            <span class="status ${application.status}">
+                ${application.status}
+            </span>
 
-                <div class="location">
-                    📍 ${application.location}
-                </div>
-
-
-                <div class="date">
-                    ${formatDate(
-                        application.date
-                    )}
-                </div>
-
-
-                <span class="status ${
-                    application.status
-                }">
-
-                    ${application.status}
-
-                </span>
+            <button
+                class="delete-btn"
+                onclick="deleteApplication(${application.id})">
+                🗑️
+            </button>
+        `;
 
 
-                <button
-                    class="delete-btn"
-                    onclick="deleteApplication(
-                        ${application.id}
-                    )">
+        applicationList.appendChild(element);
 
-                    🗑️
-
-                </button>
-
-            `;
-
-
-            applicationList.appendChild(
-                element
-            );
-
-        }
-    );
-
+    });
 }
 
 
@@ -285,44 +201,77 @@ function displayApplications() {
 
 function formatDate(date) {
 
+    if (!date) {
+        return "";
+    }
+
     const parts =
         date.split("-");
 
     return `${parts[2]}-${parts[1]}-${parts[0]}`;
-
 }
 
 
-// ================= DELETE =================
+// ================= DELETE APPLICATION =================
 
-function deleteApplication(id) {
+async function deleteApplication(id) {
 
     const confirmDelete =
         confirm(
             "Delete this application?"
         );
 
-
     if (!confirmDelete) {
-
         return;
-
     }
 
 
-    applications =
-        applications.filter(
-            application =>
-                application.id !== id
+    try {
+
+        const response =
+            await fetch(
+                `${API_URL}/${id}`,
+                {
+                    method: "DELETE"
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Failed to delete application"
+            );
+        }
+
+
+        // Remove from frontend array
+        applications =
+            applications.filter(
+                application =>
+                    application.id !== id
+            );
+
+
+        updateStats();
+        displayApplications();
+
+
+        console.log(
+            "Application deleted successfully!"
         );
 
+    } catch (error) {
 
-    saveApplications();
+        console.error(
+            "Error deleting application:",
+            error
+        );
 
-    updateStats();
-
-    displayApplications();
-
+        alert(
+            "Unable to delete application."
+        );
+    }
 }
 
 
@@ -336,67 +285,55 @@ searchInput.addEventListener(
 
 // ================= FILTERS =================
 
-filters.forEach(
-    filter => {
+filters.forEach(filter => {
 
-        filter.addEventListener(
-            "click",
-            () => {
+    filter.addEventListener(
+        "click",
+        () => {
 
-                filters.forEach(
-                    item => {
+            filters.forEach(item => {
 
-                        item.classList.remove(
-                            "active"
-                        );
-
-                    }
-                );
-
-
-                filter.classList.add(
+                item.classList.remove(
                     "active"
                 );
 
-
-                currentFilter =
-                    filter.dataset.filter;
+            });
 
 
-                displayApplications();
+            filter.classList.add(
+                "active"
+            );
 
-            }
-        );
 
-    }
-);
+            currentFilter =
+                filter.dataset.filter;
+
+
+            displayApplications();
+
+        }
+    );
+
+});
 
 
 // ================= MODAL =================
 
 const modal =
-    document.getElementById(
-        "modal"
-    );
+    document.getElementById("modal");
 
 const openModal =
-    document.getElementById(
-        "openModal"
-    );
+    document.getElementById("openModal");
 
 const closeModal =
-    document.getElementById(
-        "closeModal"
-    );
+    document.getElementById("closeModal");
 
 
 openModal.addEventListener(
     "click",
     () => {
 
-        modal.classList.add(
-            "show"
-        );
+        modal.classList.add("show");
 
     }
 );
@@ -406,9 +343,7 @@ closeModal.addEventListener(
     "click",
     () => {
 
-        modal.classList.remove(
-            "show"
-        );
+        modal.classList.remove("show");
 
     }
 );
@@ -418,13 +353,9 @@ modal.addEventListener(
     "click",
     event => {
 
-        if (
-            event.target === modal
-        ) {
+        if (event.target === modal) {
 
-            modal.classList.remove(
-                "show"
-            );
+            modal.classList.remove("show");
 
         }
 
@@ -435,53 +366,54 @@ modal.addEventListener(
 // ================= ADD APPLICATION =================
 
 const jobForm =
-    document.getElementById(
-        "jobForm"
-    );
+    document.getElementById("jobForm");
 
 
 jobForm.addEventListener(
     "submit",
-    event => {
+    async event => {
 
         event.preventDefault();
 
 
         const company =
-            document.getElementById(
-                "company"
-            ).value.trim();
+            document
+                .getElementById("company")
+                .value
+                .trim();
 
 
         const position =
-            document.getElementById(
-                "position"
-            ).value.trim();
+            document
+                .getElementById("position")
+                .value
+                .trim();
 
 
         const location =
-            document.getElementById(
-                "location"
-            ).value.trim();
+            document
+                .getElementById("location")
+                .value
+                .trim();
 
 
-        const date =
-            document.getElementById(
-                "applicationDate"
-            ).value;
+        const applicationDate =
+            document
+                .getElementById("applicationDate")
+                .value;
 
 
         const status =
-            document.getElementById(
-                "status"
-            ).value;
+            document
+                .getElementById("status")
+                .value;
 
 
         if (
             !company ||
             !position ||
             !location ||
-            !date
+            !applicationDate
         ) {
 
             alert(
@@ -489,13 +421,13 @@ jobForm.addEventListener(
             );
 
             return;
-
         }
 
 
+        // Object sent to Spring Boot
         const newApplication = {
 
-            id: Date.now(),
+            userId: CURRENT_USER_ID,
 
             company: company,
 
@@ -503,30 +435,81 @@ jobForm.addEventListener(
 
             location: location,
 
-            date: date,
+            applicationDate: applicationDate,
 
             status: status
 
         };
 
 
-        applications.push(
-            newApplication
-        );
+        try {
+
+            const response =
+                await fetch(
+                    API_URL,
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body:
+                            JSON.stringify(
+                                newApplication
+                            )
+                    }
+                );
 
 
-        saveApplications();
+            if (!response.ok) {
 
-        updateStats();
+                throw new Error(
+                    "Failed to create application"
+                );
+            }
 
-        displayApplications();
+
+            // Get saved object from backend
+            const savedApplication =
+                await response.json();
 
 
-        jobForm.reset();
+            // Add database record to UI
+            applications.push(
+                savedApplication
+            );
 
-        modal.classList.remove(
-            "show"
-        );
+
+            updateStats();
+            displayApplications();
+
+
+            jobForm.reset();
+
+            modal.classList.remove(
+                "show"
+            );
+
+
+            console.log(
+                "Application saved to PostgreSQL successfully!"
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Error creating application:",
+                error
+            );
+
+            alert(
+                "Unable to save application. Please make sure the backend is running."
+            );
+
+        }
 
     }
 );
@@ -534,11 +517,9 @@ jobForm.addEventListener(
 
 // ================= INITIAL LOAD =================
 
-updateStats();
-
-displayApplications();
+loadApplications();
 
 
 console.log(
-    "CareerTrack Job Tracker loaded successfully!"
+    "CareerTrack Job Tracker connected to Spring Boot API!"
 );
