@@ -112,121 +112,186 @@ function isValidEmail(email) {
 
 }
 
-
 // ================= LOGIN =================
 
 const loginForm =
     document.getElementById("loginForm");
 
-
 if (loginForm) {
 
-    loginForm.addEventListener("submit", event => {
+    loginForm.addEventListener(
+        "submit",
+        async event => {
 
-        event.preventDefault();
+            event.preventDefault();
 
-        clearErrors();
+            clearErrors();
 
+            const email =
+                document
+                    .getElementById("loginEmail")
+                    .value
+                    .trim();
 
-        const email =
-            document
-                .getElementById("loginEmail")
-                .value
-                .trim();
+            const password =
+                document
+                    .getElementById("loginPassword")
+                    .value;
 
-
-        const password =
-            document
-                .getElementById("loginPassword")
-                .value;
-
-
-        let valid = true;
+            let valid = true;
 
 
-        // Email validation
+            // ================= EMAIL VALIDATION =================
 
-        if (email === "") {
+            if (email === "") {
 
-            showError(
-                "loginEmailError",
-                "Please enter your email address."
-            );
+                showError(
+                    "loginEmailError",
+                    "Please enter your email address."
+                );
 
-            valid = false;
+                valid = false;
 
-        } else if (!isValidEmail(email)) {
+            } else if (!isValidEmail(email)) {
 
-            showError(
-                "loginEmailError",
-                "Please enter a valid email address."
-            );
+                showError(
+                    "loginEmailError",
+                    "Please enter a valid email address."
+                );
 
-            valid = false;
+                valid = false;
+            }
+
+
+            // ================= PASSWORD VALIDATION =================
+
+            if (password === "") {
+
+                showError(
+                    "loginPasswordError",
+                    "Please enter your password."
+                );
+
+                valid = false;
+
+            } else if (password.length < 6) {
+
+                showError(
+                    "loginPasswordError",
+                    "Password must contain at least 6 characters."
+                );
+
+                valid = false;
+            }
+
+
+            // ================= VALIDATION FAILED =================
+
+            if (!valid) {
+
+                setStatus(
+                    "loginStatus",
+                    "Please fix the highlighted fields.",
+                    "error"
+                );
+
+                return;
+            }
+
+
+            // ================= LOGIN API =================
+
+            try {
+
+                setStatus(
+                    "loginStatus",
+                    "Logging in...",
+                    "success"
+                );
+
+
+                const response =
+                    await fetch(
+                        "http://localhost:8080/api/auth/login",
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body: JSON.stringify({
+                                email: email,
+                                password: password
+                            })
+                        }
+                    );
+
+
+                // ================= LOGIN FAILED =================
+
+                if (!response.ok) {
+
+                    const errorMessage =
+                        await response.text();
+
+                    throw new Error(
+                        errorMessage ||
+                        "Invalid email or password"
+                    );
+                }
+
+
+                // ================= LOGIN SUCCESS =================
+
+                const user =
+                    await response.json();
+
+
+                // Store logged-in user
+                localStorage.setItem(
+                    "careerTrackUser",
+                    JSON.stringify(user)
+                );
+
+
+                setStatus(
+                    "loginStatus",
+                    "Login successful! Redirecting...",
+                    "success"
+                );
+
+
+                // Redirect to dashboard
+
+                setTimeout(() => {
+
+                    window.location.href =
+                        "dashboard.html";
+
+                }, 800);
+
+
+            } catch (error) {
+
+                console.error(
+                    "Login error:",
+                    error
+                );
+
+                setStatus(
+                    "loginStatus",
+                    error.message ||
+                    "Unable to connect to the server.",
+                    "error"
+                );
+            }
 
         }
-
-
-        // Password validation
-
-        if (password === "") {
-
-            showError(
-                "loginPasswordError",
-                "Please enter your password."
-            );
-
-            valid = false;
-
-        } else if (password.length < 6) {
-
-            showError(
-                "loginPasswordError",
-                "Password must contain at least 6 characters."
-            );
-
-            valid = false;
-
-        }
-
-
-        // Stop if validation failed
-
-        if (!valid) {
-
-            setStatus(
-                "loginStatus",
-                "Please fix the highlighted fields.",
-                "error"
-            );
-
-            return;
-
-        }
-
-
-        // ================= LOGIN SUCCESS =================
-
-        setStatus(
-            "loginStatus",
-            "Login successful! Redirecting...",
-            "success"
-        );
-
-
-        // Redirect to dashboard
-
-        setTimeout(() => {
-
-            window.location.href =
-                "dashboard.html";
-
-        }, 800);
-
-    });
+    );
 
 }
-
 
 // ================= REGISTER =================
 
@@ -238,7 +303,7 @@ if (registerForm) {
 
     registerForm.addEventListener(
         "submit",
-        event => {
+        async event => {
 
             event.preventDefault();
 
@@ -299,7 +364,6 @@ if (registerForm) {
                 );
 
                 valid = false;
-
             }
 
 
@@ -322,7 +386,6 @@ if (registerForm) {
                 );
 
                 valid = false;
-
             }
 
 
@@ -345,7 +408,6 @@ if (registerForm) {
                 );
 
                 valid = false;
-
             }
 
 
@@ -360,9 +422,7 @@ if (registerForm) {
 
                 valid = false;
 
-            } else if (
-                password !== confirmPassword
-            ) {
+            } else if (password !== confirmPassword) {
 
                 showError(
                     "confirmPasswordError",
@@ -370,7 +430,6 @@ if (registerForm) {
                 );
 
                 valid = false;
-
             }
 
 
@@ -385,7 +444,6 @@ if (registerForm) {
                 );
 
                 valid = false;
-
             }
 
 
@@ -400,23 +458,92 @@ if (registerForm) {
                 );
 
                 return;
-
             }
 
 
-            // ================= REGISTER SUCCESS =================
+            // ================= REGISTER API =================
 
-            setStatus(
-                "registerStatus",
-                "Account created successfully! Login coming soon.",
-                "success"
-            );
+            try {
+
+                setStatus(
+                    "registerStatus",
+                    "Creating your account...",
+                    "success"
+                );
+
+
+                const response =
+                    await fetch(
+                        "http://localhost:8080/api/auth/register",
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body: JSON.stringify({
+                                name: name,
+                                email: email,
+                                password: password
+                            })
+                        }
+                    );
+
+
+                // ================= REGISTER FAILED =================
+
+                if (!response.ok) {
+
+                    const errorMessage =
+                        await response.text();
+
+                    throw new Error(
+                        errorMessage ||
+                        "Registration failed"
+                    );
+                }
+
+
+                // ================= REGISTER SUCCESS =================
+
+                setStatus(
+                    "registerStatus",
+                    "Account created successfully! Redirecting to login...",
+                    "success"
+                );
+
+
+                // Redirect to login
+
+                setTimeout(() => {
+
+                    window.location.href =
+                        "login.html";
+
+                }, 1200);
+
+
+            } catch (error) {
+
+                console.error(
+                    "Registration error:",
+                    error
+                );
+
+                setStatus(
+                    "registerStatus",
+                    error.message ||
+                    "Unable to connect to the server.",
+                    "error"
+                );
+            }
 
         }
     );
 
 }
-
 
 // ================= PASSWORD STRENGTH =================
 
