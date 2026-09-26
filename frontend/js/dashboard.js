@@ -4,11 +4,27 @@
 // =====================================================
 
 
+// ================= API CONFIGURATION =================
+
+const API_URL = "http://localhost:8080/api/dashboard";
+
+
+// ================= CURRENT USER =================
+
+const storedUser =
+    localStorage.getItem("careerTrackUser");
+
+let currentUser = null;
+
+if (storedUser) {
+    currentUser = JSON.parse(storedUser);
+}
+
+
 // ================= CURRENT DATE =================
 
 const currentDateElement =
     document.getElementById("currentDate");
-
 
 if (currentDateElement) {
 
@@ -25,26 +41,118 @@ if (currentDateElement) {
             "en-US",
             options
         );
+}
+
+
+// ================= USER NAME =================
+
+const userNameElement =
+    document.getElementById("userName");
+
+if (
+    userNameElement &&
+    currentUser
+) {
+
+    userNameElement.textContent =
+        currentUser.name;
+}
+
+
+// ================= LOAD DASHBOARD DATA =================
+
+async function loadDashboardData() {
+
+    if (!currentUser) {
+
+        console.log(
+            "No logged-in user found."
+        );
+
+        return;
+    }
+
+    try {
+
+        const response =
+            await fetch(
+                `${API_URL}/${currentUser.id}`
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Failed to load dashboard data"
+            );
+        }
+
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "Dashboard data loaded:",
+            data
+        );
+
+
+        // ================= UPDATE COUNTERS =================
+
+        updateCounter(
+            "totalApplications",
+            data.totalApplications
+        );
+
+        updateCounter(
+            "appliedCount",
+            data.applied
+        );
+
+        updateCounter(
+            "interviewCount",
+            data.interview
+        );
+
+        updateCounter(
+            "selectedCount",
+            data.selected
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Dashboard API error:",
+            error
+        );
+
+    }
 
 }
 
 
-// ================= ANIMATED COUNTERS =================
+// ================= ANIMATED COUNTER =================
 
-const counters =
-    document.querySelectorAll(
-        ".stat-number"
-    );
+function updateCounter(
+    elementId,
+    target
+) {
 
-
-counters.forEach(counter => {
-
-    const target =
-        Number(
-            counter.getAttribute(
-                "data-target"
-            )
+    const counter =
+        document.getElementById(
+            elementId
         );
+
+
+    if (!counter) {
+        return;
+    }
+
+
+    target =
+        Number(target) || 0;
 
 
     let current = 0;
@@ -57,7 +165,7 @@ counters.forEach(counter => {
         );
 
 
-    const updateCounter = () => {
+    const update = () => {
 
         current += increment;
 
@@ -68,7 +176,6 @@ counters.forEach(counter => {
                 target;
 
             return;
-
         }
 
 
@@ -77,15 +184,15 @@ counters.forEach(counter => {
 
 
         requestAnimationFrame(
-            updateCounter
+            update
         );
 
     };
 
 
-    updateCounter();
+    update();
 
-});
+}
 
 
 // ================= MOBILE SIDEBAR =================
@@ -187,6 +294,7 @@ taskItems.forEach(task => {
 
             }
 
+
             updateTaskCount();
 
         }
@@ -246,6 +354,7 @@ if (logoutBtn) {
 
             event.preventDefault();
 
+
             const confirmLogout =
                 confirm(
                     "Are you sure you want to logout?"
@@ -254,8 +363,13 @@ if (logoutBtn) {
 
             if (confirmLogout) {
 
+                localStorage.removeItem(
+                    "careerTrackUser"
+                );
+
+
                 window.location.href =
-                    "index.html";
+                    "login.html";
 
             }
 
@@ -265,7 +379,7 @@ if (logoutBtn) {
 }
 
 
-// ================= NAVIGATION PLACEHOLDER =================
+// ================= NAVIGATION =================
 
 const navItems =
     document.querySelectorAll(
@@ -289,6 +403,7 @@ navItems.forEach(item => {
 
                 event.preventDefault();
 
+
                 alert(
                     "This module will be available soon!"
                 );
@@ -299,6 +414,11 @@ navItems.forEach(item => {
     );
 
 });
+
+
+// ================= LOAD DATA =================
+
+loadDashboardData();
 
 
 // ================= CONSOLE =================
