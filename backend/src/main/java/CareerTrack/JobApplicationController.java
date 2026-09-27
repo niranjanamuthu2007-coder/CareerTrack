@@ -18,9 +18,11 @@ public class JobApplicationController {
 
     // GET all jobs
     @GetMapping
-    public List<JobApplication> getAllJobs() {
-        return repository.findAll();
-    }
+public List<JobApplication> getAllJobs(
+        @RequestParam Integer userId) {
+
+    return repository.findByUserId(userId);
+}
 
     // GET one job
     @GetMapping("/{id}")

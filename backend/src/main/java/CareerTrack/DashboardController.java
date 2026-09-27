@@ -23,12 +23,8 @@ public class DashboardController {
             @PathVariable Integer userId) {
 
         var jobs =
-                jobRepository.findAll()
-                        .stream()
-                        .filter(job ->
-                                job.getUserId()
-                                        .equals(userId))
-                        .toList();
+                jobRepository
+                        .findByUserId(userId);
 
         long total =
                 jobs.size();
@@ -64,11 +60,30 @@ public class DashboardController {
         Map<String, Object> dashboard =
                 new HashMap<>();
 
-        dashboard.put("totalApplications", total);
-        dashboard.put("applied", applied);
-        dashboard.put("interview", interview);
-        dashboard.put("selected", selected);
-        dashboard.put("rejected", rejected);
+        dashboard.put(
+                "totalApplications",
+                total
+        );
+
+        dashboard.put(
+                "applied",
+                applied
+        );
+
+        dashboard.put(
+                "interview",
+                interview
+        );
+
+        dashboard.put(
+                "selected",
+                selected
+        );
+
+        dashboard.put(
+                "rejected",
+                rejected
+        );
 
         return dashboard;
     }

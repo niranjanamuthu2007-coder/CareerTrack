@@ -8,8 +8,7 @@
 
 const API_URL = "http://localhost:8080/api/dashboard";
 
-
-// ================= CURRENT USER =================
+// ================= AUTHENTICATION CHECK =================
 
 const storedUser =
     localStorage.getItem("careerTrackUser");
@@ -17,7 +16,34 @@ const storedUser =
 let currentUser = null;
 
 if (storedUser) {
-    currentUser = JSON.parse(storedUser);
+
+    try {
+
+        currentUser =
+            JSON.parse(storedUser);
+
+    } catch (error) {
+
+        console.error(
+            "Invalid user session."
+        );
+
+        localStorage.removeItem(
+            "careerTrackUser"
+        );
+
+    }
+
+}
+
+
+// ================= PROTECT DASHBOARD =================
+
+if (!currentUser) {
+
+    window.location.href =
+        "login.html";
+
 }
 
 
@@ -101,9 +127,9 @@ async function loadDashboardData() {
         // ================= UPDATE COUNTERS =================
 
         updateCounter(
-            "totalApplications",
-            data.totalApplications
-        );
+    "jobApplicationsCount",
+    data.totalApplications
+);
 
         updateCounter(
             "appliedCount",
@@ -253,7 +279,56 @@ if (
     );
 
 }
+// ================= STATIC CARD COUNTERS =================
 
+function animateStaticCounters() {
+
+    const counters =
+        document.querySelectorAll(
+            ".stat-number[data-target]"
+        );
+
+    counters.forEach(counter => {
+
+        const target =
+            Number(
+                counter.getAttribute(
+                    "data-target"
+                )
+            );
+
+        let current = 0;
+
+        const increment =
+            Math.max(
+                1,
+                Math.ceil(target / 35)
+            );
+
+        const update = () => {
+
+            current += increment;
+
+            if (current >= target) {
+
+                counter.textContent =
+                    target;
+
+                return;
+            }
+
+            counter.textContent =
+                current;
+
+            requestAnimationFrame(
+                update
+            );
+        };
+
+        update();
+
+    });
+}
 
 // ================= TASK CHECKBOXES =================
 
@@ -419,6 +494,7 @@ navItems.forEach(item => {
 // ================= LOAD DATA =================
 
 loadDashboardData();
+animateStaticCounters();
 
 
 // ================= CONSOLE =================

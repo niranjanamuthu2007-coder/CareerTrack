@@ -2,10 +2,54 @@
 
 const API_URL = "http://localhost:8080/api/jobs";
 
-// Temporary user ID
-// Real authentication will provide this later on Day 12.
-const CURRENT_USER_ID = 1;
 
+// ================= CURRENT USER =================
+
+const storedUser =
+    localStorage.getItem("careerTrackUser");
+
+let currentUser = null;
+
+if (storedUser) {
+
+    try {
+
+        currentUser =
+            JSON.parse(storedUser);
+
+    } catch (error) {
+
+        console.error(
+            "Invalid user session."
+        );
+
+    }
+}
+
+
+// ================= PROTECT JOB TRACKER =================
+
+if (!currentUser) {
+
+    window.location.href =
+        "login.html";
+
+}
+
+const loggedInUserName =
+    document.getElementById(
+        "loggedInUserName"
+    );
+
+if (
+    loggedInUserName &&
+    currentUser
+) {
+
+    loggedInUserName.textContent =
+        currentUser.name;
+
+}
 
 // ================= APPLICATION DATA =================
 
@@ -46,7 +90,10 @@ async function loadApplications() {
 
     try {
 
-        const response = await fetch(API_URL);
+        const response =
+    await fetch(
+        `${API_URL}?userId=${currentUser.id}`
+    );
 
         if (!response.ok) {
             throw new Error("Failed to load applications");
@@ -426,20 +473,13 @@ jobForm.addEventListener(
 
         // Object sent to Spring Boot
         const newApplication = {
-
-            userId: CURRENT_USER_ID,
-
-            company: company,
-
-            position: position,
-
-            location: location,
-
-            applicationDate: applicationDate,
-
-            status: status
-
-        };
+    userId: currentUser.id,
+    company: company,
+    position: position,
+    location: location,
+    applicationDate: applicationDate,
+    status: status
+};
 
 
         try {
