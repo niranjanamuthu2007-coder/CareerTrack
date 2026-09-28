@@ -47,6 +47,35 @@ if (!currentUser) {
 }
 
 
+const userName =
+    document.getElementById("userName");
+
+const profileName =
+    document.getElementById("profileName");
+
+const profileAvatar =
+    document.getElementById("profileAvatar");
+
+if (currentUser) {
+
+    if (userName) {
+        userName.textContent =
+            currentUser.name + "!";
+    }
+
+    if (profileName) {
+        profileName.textContent =
+            currentUser.name;
+    }
+
+    if (profileAvatar) {
+        profileAvatar.textContent =
+            currentUser.name
+                .charAt(0)
+                .toUpperCase();
+    }
+}
+
 // ================= CURRENT DATE =================
 
 const currentDateElement =
@@ -461,7 +490,6 @@ const navItems =
         ".nav-item"
     );
 
-
 navItems.forEach(item => {
 
     item.addEventListener(
@@ -469,19 +497,11 @@ navItems.forEach(item => {
         event => {
 
             const href =
-                item.getAttribute(
-                    "href"
-                );
+                item.getAttribute("href");
 
-
-            if (href === "#") {
+            if (!href || href === "#") {
 
                 event.preventDefault();
-
-
-                alert(
-                    "This module will be available soon!"
-                );
 
             }
 
