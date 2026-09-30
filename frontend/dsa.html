@@ -39,15 +39,11 @@
             </a>
 
             <a href="skills.html">
-            🛠️ Skills
+                🛠️ Skills
             </a>
 
             <a href="study.html">
                 📚 Study Planner
-            </a>
-
-            <a href="#">
-                ⚙️ Settings
             </a>
 
         </nav>
@@ -75,15 +71,23 @@
 
             </div>
 
+
+            <!-- ================= PROFILE ================= -->
+
             <div class="profile">
 
-                <div class="avatar">
+                <div class="avatar" id="profileAvatar">
                     N
                 </div>
 
                 <div>
-                    <strong>Niranjana</strong>
-                    <small>Student</small>
+                    <strong id="profileName">
+                        Student
+                    </strong>
+
+                    <small>
+                        Student
+                    </small>
                 </div>
 
             </div>
@@ -96,7 +100,7 @@
         <section class="content">
 
 
-            <!-- PAGE HEADER -->
+            <!-- ================= PAGE HEADER ================= -->
 
             <div class="page-header">
 
@@ -116,6 +120,7 @@
                     </p>
 
                 </div>
+
 
                 <button
                     class="add-btn"
@@ -139,11 +144,13 @@
                     </div>
 
                     <div>
+
                         <p>Total Problems</p>
 
                         <h2 id="totalProblems">
                             0
                         </h2>
+
                     </div>
 
                 </div>
@@ -156,11 +163,13 @@
                     </div>
 
                     <div>
+
                         <p>Solved</p>
 
                         <h2 id="solvedProblems">
                             0
                         </h2>
+
                     </div>
 
                 </div>
@@ -173,11 +182,13 @@
                     </div>
 
                     <div>
+
                         <p>In Progress</p>
 
                         <h2 id="progressProblems">
                             0
                         </h2>
+
                     </div>
 
                 </div>
@@ -190,11 +201,13 @@
                     </div>
 
                     <div>
+
                         <p>Completion</p>
 
                         <h2 id="completion">
                             0%
                         </h2>
+
                     </div>
 
                 </div>
@@ -209,11 +222,15 @@
                 <div class="card-title">
 
                     <div>
-                        <h2>DSA Progress</h2>
+
+                        <h2>
+                            DSA Progress
+                        </h2>
 
                         <p>
                             Your overall problem-solving progress
                         </p>
+
                     </div>
 
                     <strong id="progressPercent">
@@ -221,6 +238,7 @@
                     </strong>
 
                 </div>
+
 
                 <div class="progress-track">
 
@@ -242,13 +260,16 @@
 
                     <div>
 
-                        <h2>Problem List</h2>
+                        <h2>
+                            Problem List
+                        </h2>
 
                         <p>
                             Search and manage your DSA problems.
                         </p>
 
                     </div>
+
 
                     <input
                         type="text"
@@ -268,6 +289,7 @@
 
                     </button>
 
+
                     <button
                         class="filter"
                         data-filter="Easy">
@@ -275,6 +297,7 @@
                         Easy
 
                     </button>
+
 
                     <button
                         class="filter"
@@ -284,6 +307,7 @@
 
                     </button>
 
+
                     <button
                         class="filter"
                         data-filter="Hard">
@@ -291,6 +315,7 @@
                         Hard
 
                     </button>
+
 
                     <button
                         class="filter"
@@ -303,10 +328,11 @@
                 </div>
 
 
-                <!-- PROBLEMS -->
+                <!-- ================= PROBLEM LIST ================= -->
 
-                <div id="problemList"
-                     class="problem-list">
+                <div
+                    id="problemList"
+                    class="problem-list">
                 </div>
 
             </div>
@@ -318,7 +344,9 @@
 
     <!-- ================= MODAL ================= -->
 
-    <div class="modal" id="modal">
+    <div
+        class="modal"
+        id="modal">
 
         <div class="modal-box">
 
@@ -330,7 +358,10 @@
 
             </button>
 
-            <h2>Add DSA Problem</h2>
+
+            <h2>
+                Add DSA Problem
+            </h2>
 
             <p>
                 Add a problem to your tracker.
@@ -397,10 +428,12 @@
     </div>
 
 
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script src="js/user.js"></script>
+
     <script src="js/dsa.js"></script>
 
 </body>
 
 </html>
-<script src="js/user.js"></script>
-<script src="js/dsa.js"></script>
