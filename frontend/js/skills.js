@@ -1,147 +1,111 @@
+// =====================================================
+// CAREERTRACK
+// SKILLS TRACKER
+// =====================================================
+
+const storedUser = localStorage.getItem("careerTrackUser");
+
+let currentUser = null;
+
+if (storedUser) {
+    try {
+        currentUser = JSON.parse(storedUser);
+    } catch (error) {
+        console.error("Invalid user session.");
+        localStorage.removeItem("careerTrackUser");
+    }
+}
+
+if (!currentUser) {
+    window.location.href = "login.html";
+}
+
+
+// ================= USER STORAGE =================
+
+const skillsStorageKey =
+    "careerTrackSkills_" + currentUser.id;
+
+
 // ================= DEFAULT SKILLS =================
 
 const defaultSkills = [
-
     {
         id: 1,
         name: "Java",
         category: "Programming",
         progress: 85
     },
-
     {
         id: 2,
         name: "Python",
         category: "Programming",
         progress: 70
     },
-
     {
         id: 3,
         name: "C++",
         category: "Programming",
         progress: 65
     },
-
     {
         id: 4,
         name: "SQL",
         category: "Database",
         progress: 75
     },
-
     {
         id: 5,
-        name: "HTML / CSS / JavaScript",
+        name: "HTML/CSS/JS",
         category: "Web Development",
         progress: 80
     },
-
     {
         id: 6,
         name: "DSA",
         category: "Programming",
         progress: 72
     },
-
     {
         id: 7,
         name: "Git & GitHub",
         category: "Tools",
         progress: 65
     },
-
     {
         id: 8,
         name: "Spring Boot",
         category: "Programming",
         progress: 40
     }
-
 ];
 
 
-// ================= LOAD DATA =================
+// ================= LOAD SKILLS =================
 
-let skills =
-    JSON.parse(
-        localStorage.getItem(
-            "careerTrackSkills"
-        )
-    ) || defaultSkills;
+let skills = [];
 
+const storedSkills =
+    localStorage.getItem(skillsStorageKey);
 
-// ================= ELEMENTS =================
+if (storedSkills) {
 
-const skillList =
-    document.getElementById(
-        "skillList"
-    );
+    try {
+        skills = JSON.parse(storedSkills);
+    } catch (error) {
 
-const totalSkills =
-    document.getElementById(
-        "totalSkills"
-    );
+        console.error("Invalid skills data.");
 
-const advancedSkills =
-    document.getElementById(
-        "advancedSkills"
-    );
+        skills = [...defaultSkills];
 
-const learningSkills =
-    document.getElementById(
-        "learningSkills"
-    );
-
-const overallProgress =
-    document.getElementById(
-        "overallProgress"
-    );
-
-const overallNumber =
-    document.getElementById(
-        "overallNumber"
-    );
-
-const overallFill =
-    document.getElementById(
-        "overallFill"
-    );
-
-const searchInput =
-    document.getElementById(
-        "searchInput"
-    );
-
-const filters =
-    document.querySelectorAll(
-        ".filter"
-    );
-
-
-// Current filter
-
-let currentFilter = "All";
-
-
-// ================= LEVEL =================
-
-function getLevel(progress) {
-
-    if (progress >= 80) {
-
-        return "Advanced";
-
+        saveSkills();
     }
 
-    if (progress >= 50) {
+} else {
 
-        return "Intermediate";
+    skills = [...defaultSkills];
 
-    }
-
-    return "Beginner";
-
+    saveSkills();
 }
 
 
@@ -150,29 +114,121 @@ function getLevel(progress) {
 function saveSkills() {
 
     localStorage.setItem(
-        "careerTrackSkills",
+        skillsStorageKey,
         JSON.stringify(skills)
     );
 
 }
 
 
-// ================= UPDATE STATS =================
+// ================= ELEMENTS =================
+
+const skillList =
+    document.getElementById("skillList");
+
+const totalSkills =
+    document.getElementById("totalSkills");
+
+const advancedSkills =
+    document.getElementById("advancedSkills");
+
+const learningSkills =
+    document.getElementById("learningSkills");
+
+const overallProgress =
+    document.getElementById("overallProgress");
+
+const overallNumber =
+    document.getElementById("overallNumber");
+
+const overallFill =
+    document.getElementById("overallFill");
+
+const searchInput =
+    document.getElementById("searchInput");
+
+const filters =
+    document.querySelectorAll(".filter");
+
+const modal =
+    document.getElementById("modal");
+
+const openModal =
+    document.getElementById("openModal");
+
+const closeModal =
+    document.getElementById("closeModal");
+
+const skillForm =
+    document.getElementById("skillForm");
+
+const skillName =
+    document.getElementById("skillName");
+
+const skillCategory =
+    document.getElementById("skillCategory");
+
+const skillProgress =
+    document.getElementById("skillProgress");
+
+const progressValue =
+    document.getElementById("progressValue");
+
+
+let currentFilter = "All";
+
+
+// ================= SKILL LEVEL =================
+
+function getLevel(progress) {
+
+    if (progress >= 80) {
+        return "Advanced";
+    }
+
+    if (progress >= 50) {
+        return "Intermediate";
+    }
+
+    return "Beginner";
+}
+
+
+// ================= SKILL ICON =================
+
+function getSkillIcon(category) {
+
+    if (category === "Programming") {
+        return "💻";
+    }
+
+    if (category === "Web Development") {
+        return "🌐";
+    }
+
+    if (category === "Database") {
+        return "🗄️";
+    }
+
+    if (category === "Tools") {
+        return "🛠️";
+    }
+
+    return "⭐";
+}
+
+
+// ================= STATS =================
 
 function updateStats() {
 
-    const total =
-        skills.length;
-
+    const total = skills.length;
 
     const advanced =
         skills.filter(
             skill =>
-                getLevel(
-                    skill.progress
-                ) === "Advanced"
+                getLevel(skill.progress) === "Advanced"
         ).length;
-
 
     const learning =
         skills.filter(
@@ -180,16 +236,14 @@ function updateStats() {
                 skill.progress < 80
         ).length;
 
-
     let average = 0;
-
 
     if (total > 0) {
 
         const totalProgress =
             skills.reduce(
                 (sum, skill) =>
-                    sum + skill.progress,
+                    sum + Number(skill.progress),
                 0
             );
 
@@ -197,127 +251,79 @@ function updateStats() {
             Math.round(
                 totalProgress / total
             );
-
     }
 
 
-    totalSkills.textContent =
-        total;
+    if (totalSkills) {
+        totalSkills.textContent = total;
+    }
 
-    advancedSkills.textContent =
-        advanced;
+    if (advancedSkills) {
+        advancedSkills.textContent = advanced;
+    }
 
-    learningSkills.textContent =
-        learning;
+    if (learningSkills) {
+        learningSkills.textContent = learning;
+    }
 
-    overallProgress.textContent =
-        average + "%";
+    if (overallProgress) {
+        overallProgress.textContent =
+            average + "%";
+    }
 
-    overallNumber.textContent =
-        average + "%";
+    if (overallNumber) {
+        overallNumber.textContent =
+            average + "%";
+    }
 
-    overallFill.style.width =
-        average + "%";
-
+    if (overallFill) {
+        overallFill.style.width =
+            average + "%";
+    }
 }
 
 
-// ================= ICON =================
-
-function getSkillIcon(
-    category
-) {
-
-    if (
-        category ===
-        "Programming"
-    ) {
-
-        return "💻";
-
-    }
-
-    if (
-        category ===
-        "Web Development"
-    ) {
-
-        return "🌐";
-
-    }
-
-    if (
-        category ===
-        "Database"
-    ) {
-
-        return "🗄️";
-
-    }
-
-    if (
-        category ===
-        "Tools"
-    ) {
-
-        return "🛠️";
-
-    }
-
-    return "📚";
-
-}
-
-
-// ================= DISPLAY =================
+// ================= DISPLAY SKILLS =================
 
 function displaySkills() {
 
-    const searchText =
-        searchInput.value
-            .toLowerCase()
-            .trim();
+    if (!skillList) {
+        return;
+    }
+
+
+    const searchTerm =
+        searchInput
+            ? searchInput.value
+                .toLowerCase()
+                .trim()
+            : "";
 
 
     const filtered =
-        skills.filter(
-            skill => {
+        skills.filter(skill => {
 
-                const level =
-                    getLevel(
-                        skill.progress
-                    );
-
-
-                const matchesSearch =
-                    skill.name
-                        .toLowerCase()
-                        .includes(
-                            searchText
-                        ) ||
-
-                    skill.category
-                        .toLowerCase()
-                        .includes(
-                            searchText
-                        );
+            const matchesSearch =
+                skill.name
+                    .toLowerCase()
+                    .includes(searchTerm);
 
 
-                const matchesFilter =
-                    currentFilter ===
-                    "All" ||
-
-                    level ===
-                    currentFilter;
+            const level =
+                getLevel(skill.progress);
 
 
-                return (
-                    matchesSearch &&
-                    matchesFilter
-                );
+            const matchesFilter =
+                currentFilter === "All" ||
+                currentFilter === level;
 
-            }
-        );
+
+            return (
+                matchesSearch &&
+                matchesFilter
+            );
+
+        });
 
 
     skillList.innerHTML = "";
@@ -332,112 +338,295 @@ function displaySkills() {
         `;
 
         return;
-
     }
 
 
-    filtered.forEach(
-        skill => {
+    filtered.forEach(skill => {
 
-            const level =
-                getLevel(
-                    skill.progress
-                );
+        const level =
+            getLevel(skill.progress);
 
 
-            const element =
-                document.createElement(
-                    "div"
-                );
+        const element =
+            document.createElement("div");
 
 
-            element.className =
-                "skill";
+        // IMPORTANT:
+        // CSS uses .skill, not .skill-item
+        element.className = "skill";
 
 
-            element.innerHTML = `
+        element.innerHTML = `
 
-                <div class="skill-top">
+            <div class="skill-top">
 
-                    <div class="skill-info">
+                <div class="skill-info">
 
-                        <div class="skill-icon">
-                            ${getSkillIcon(
-                                skill.category
-                            )}
+                    <div class="skill-icon">
+                        ${getSkillIcon(skill.category)}
+                    </div>
+
+                    <div>
+
+                        <div class="skill-name">
+                            ${skill.name}
                         </div>
 
-                        <div>
-
-                            <div class="skill-name">
-                                ${skill.name}
-                            </div>
-
-                            <div class="skill-category">
-                                ${skill.category}
-                            </div>
-
+                        <div class="skill-category">
+                            ${skill.category}
                         </div>
 
                     </div>
 
-
-                    <div class="skill-percentage">
-                        ${skill.progress}%
-                    </div>
-
                 </div>
 
 
-                <div class="skill-progress">
+                <div class="skill-percentage">
+                    ${skill.progress}%
+                </div>
 
-                    <div
-                        class="skill-progress-fill"
-                        style="width:${skill.progress}%">
-                    </div>
+            </div>
+
+
+            <div class="skill-progress">
+
+                <div
+                    class="skill-progress-fill"
+                    style="width:${skill.progress}%">
+                </div>
+
+            </div>
+
+
+            <div class="skill-bottom">
+
+                <span class="level ${level}">
+                    ${level}
+                </span>
+
+
+                <div class="skill-actions">
+
+                    <button
+                        type="button"
+                        class="edit-btn"
+                        onclick="editSkill(${skill.id})">
+
+                        ✏️ Edit
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="delete-btn"
+                        onclick="deleteSkill(${skill.id})">
+
+                        🗑️ Delete
+
+                    </button>
 
                 </div>
 
+            </div>
 
-                <div class="skill-bottom">
-
-                    <span class="level ${level}">
-                        ${level}
-                    </span>
+        `;
 
 
-                    <div class="skill-actions">
+        skillList.appendChild(element);
 
-                        <button
-                            class="edit-btn"
-                            onclick="editSkill(
-                                ${skill.id}
-                            )">
+    });
 
-                            ✏️ Edit
-
-                        </button>
+}
 
 
-                        <button
-                            class="delete-btn"
-                            onclick="deleteSkill(
-                                ${skill.id}
-                            )">
+// ================= SEARCH =================
 
-                            🗑️ Delete
+if (searchInput) {
 
-                        </button>
+    searchInput.addEventListener(
+        "input",
+        displaySkills
+    );
 
-                    </div>
-
-                </div>
-
-            `;
+}
 
 
-            skillList.appendChild(
-                element
+// ================= FILTERS =================
+
+filters.forEach(filter => {
+
+    filter.addEventListener(
+        "click",
+        () => {
+
+            filters.forEach(item => {
+
+                item.classList.remove(
+                    "active"
+                );
+
+            });
+
+
+            filter.classList.add(
+                "active"
+            );
+
+
+            currentFilter =
+                filter.dataset.filter;
+
+
+            displaySkills();
+
+        }
+    );
+
+});
+
+
+// ================= MODAL =================
+
+if (openModal && modal) {
+
+    openModal.addEventListener(
+        "click",
+        () => {
+
+            modal.classList.add("show");
+
+            skillForm.reset();
+
+            skillProgress.value = 50;
+
+            progressValue.textContent = "50";
+
+        }
+    );
+
+}
+
+
+if (closeModal && modal) {
+
+    closeModal.addEventListener(
+        "click",
+        () => {
+
+            modal.classList.remove("show");
+
+        }
+    );
+
+}
+
+
+if (modal) {
+
+    modal.addEventListener(
+        "click",
+        event => {
+
+            if (event.target === modal) {
+
+                modal.classList.remove("show");
+
+            }
+
+        }
+    );
+
+}
+
+
+// ================= RANGE =================
+
+if (skillProgress && progressValue) {
+
+    skillProgress.addEventListener(
+        "input",
+        () => {
+
+            progressValue.textContent =
+                skillProgress.value;
+
+        }
+    );
+
+}
+
+
+// ================= ADD SKILL =================
+
+if (skillForm) {
+
+    skillForm.addEventListener(
+        "submit",
+        event => {
+
+            event.preventDefault();
+
+
+            const name =
+                skillName.value.trim();
+
+
+            const category =
+                skillCategory.value;
+
+
+            const progress =
+                Number(
+                    skillProgress.value
+                );
+
+
+            if (!name) {
+
+                alert(
+                    "Please enter a skill name."
+                );
+
+                return;
+            }
+
+
+            const newSkill = {
+
+                id: Date.now(),
+
+                name: name,
+
+                category: category,
+
+                progress: progress
+
+            };
+
+
+            skills.push(newSkill);
+
+
+            saveSkills();
+
+
+            updateStats();
+
+
+            displaySkills();
+
+
+            skillForm.reset();
+
+
+            skillProgress.value = 50;
+
+            progressValue.textContent = "50";
+
+
+            modal.classList.remove(
+                "show"
             );
 
         }
@@ -446,233 +635,19 @@ function displaySkills() {
 }
 
 
-// ================= SEARCH =================
-
-searchInput.addEventListener(
-    "input",
-    displaySkills
-);
-
-
-// ================= FILTERS =================
-
-filters.forEach(
-    filter => {
-
-        filter.addEventListener(
-            "click",
-            () => {
-
-                filters.forEach(
-                    item => {
-
-                        item.classList.remove(
-                            "active"
-                        );
-
-                    }
-                );
-
-
-                filter.classList.add(
-                    "active"
-                );
-
-
-                currentFilter =
-                    filter.dataset.filter;
-
-
-                displaySkills();
-
-            }
-        );
-
-    }
-);
-
-
-// ================= MODAL =================
-
-const modal =
-    document.getElementById(
-        "modal"
-    );
-
-const openModal =
-    document.getElementById(
-        "openModal"
-    );
-
-const closeModal =
-    document.getElementById(
-        "closeModal"
-    );
-
-
-openModal.addEventListener(
-    "click",
-    () => {
-
-        modal.classList.add(
-            "show"
-        );
-
-    }
-);
-
-
-closeModal.addEventListener(
-    "click",
-    () => {
-
-        modal.classList.remove(
-            "show"
-        );
-
-    }
-);
-
-
-modal.addEventListener(
-    "click",
-    event => {
-
-        if (
-            event.target === modal
-        ) {
-
-            modal.classList.remove(
-                "show"
-            );
-
-        }
-
-    }
-);
-
-
-// ================= RANGE =================
-
-const skillProgress =
-    document.getElementById(
-        "skillProgress"
-    );
-
-const progressValue =
-    document.getElementById(
-        "progressValue"
-    );
-
-
-skillProgress.addEventListener(
-    "input",
-    () => {
-
-        progressValue.textContent =
-            skillProgress.value;
-
-    }
-);
-
-
-// ================= ADD SKILL =================
-
-const skillForm =
-    document.getElementById(
-        "skillForm"
-    );
-
-
-skillForm.addEventListener(
-    "submit",
-    event => {
-
-        event.preventDefault();
-
-
-        const name =
-            document.getElementById(
-                "skillName"
-            ).value.trim();
-
-
-        const category =
-            document.getElementById(
-                "skillCategory"
-            ).value;
-
-
-        const progress =
-            Number(
-                document.getElementById(
-                    "skillProgress"
-                ).value
-            );
-
-
-        if (!name) {
-
-            alert(
-                "Please enter a skill name."
-            );
-
-            return;
-
-        }
-
-
-        const newSkill = {
-
-            id: Date.now(),
-
-            name: name,
-
-            category: category,
-
-            progress: progress
-
-        };
-
-
-        skills.push(
-            newSkill
-        );
-
-
-        saveSkills();
-
-        updateStats();
-
-        displaySkills();
-
-
-        skillForm.reset();
-
-        progressValue.textContent =
-            "50";
-
-
-        modal.classList.remove(
-            "show"
-        );
-
-    }
-);
-
-
 // ================= EDIT SKILL =================
 
 function editSkill(id) {
 
     const skill =
         skills.find(
-            item =>
-                item.id === id
+            item => item.id === id
         );
 
 
-    if (!skill) return;
+    if (!skill) {
+        return;
+    }
 
 
     const newProgress =
@@ -682,19 +657,13 @@ function editSkill(id) {
         );
 
 
-    if (
-        newProgress === null
-    ) {
-
+    if (newProgress === null) {
         return;
-
     }
 
 
     const value =
-        Number(
-            newProgress
-        );
+        Number(newProgress);
 
 
     if (
@@ -708,12 +677,10 @@ function editSkill(id) {
         );
 
         return;
-
     }
 
 
-    skill.progress =
-        value;
+    skill.progress = value;
 
 
     saveSkills();
@@ -729,23 +696,31 @@ function editSkill(id) {
 
 function deleteSkill(id) {
 
-    const confirmDelete =
-        confirm(
-            "Delete this skill?"
+    const skill =
+        skills.find(
+            item => item.id === id
         );
 
 
-    if (!confirmDelete) {
-
+    if (!skill) {
         return;
+    }
 
+
+    const confirmed =
+        confirm(
+            `Delete "${skill.name}"?`
+        );
+
+
+    if (!confirmed) {
+        return;
     }
 
 
     skills =
         skills.filter(
-            skill =>
-                skill.id !== id
+            item => item.id !== id
         );
 
 
@@ -754,6 +729,41 @@ function deleteSkill(id) {
     updateStats();
 
     displaySkills();
+
+}
+
+
+// ================= PROFILE =================
+
+const profileName =
+    document.getElementById(
+        "profileName"
+    );
+
+const profileAvatar =
+    document.getElementById(
+        "profileAvatar"
+    );
+
+
+if (currentUser) {
+
+    if (profileName) {
+
+        profileName.textContent =
+            currentUser.name;
+
+    }
+
+
+    if (profileAvatar) {
+
+        profileAvatar.textContent =
+            currentUser.name
+                .charAt(0)
+                .toUpperCase();
+
+    }
 
 }
 

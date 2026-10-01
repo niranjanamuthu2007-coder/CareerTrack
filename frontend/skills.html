@@ -42,12 +42,8 @@
                 🛠️ Skills
             </a>
 
-            <a href="#">
+            <a href="study.html">
                 📚 Study Planner
-            </a>
-
-            <a href="#">
-                ⚙️ Settings
             </a>
 
         </nav>
@@ -75,15 +71,18 @@
 
             </div>
 
+
             <div class="profile">
 
-                <div class="avatar">
+                <div class="avatar" id="profileAvatar">
                     N
                 </div>
 
                 <div>
 
-                    <strong>Niranjana</strong>
+                    <strong id="profileName">
+                        Student
+                    </strong>
 
                     <small>
                         Student
@@ -99,9 +98,6 @@
         <!-- ================= CONTENT ================= -->
 
         <section class="content">
-
-
-            <!-- PAGE HEADER -->
 
             <div class="page-header">
 
@@ -124,6 +120,7 @@
 
 
                 <button
+                    type="button"
                     class="add-btn"
                     id="openModal">
 
@@ -148,9 +145,7 @@
 
                         <p>Total Skills</p>
 
-                        <h2 id="totalSkills">
-                            0
-                        </h2>
+                        <h2 id="totalSkills">0</h2>
 
                     </div>
 
@@ -167,9 +162,7 @@
 
                         <p>Advanced</p>
 
-                        <h2 id="advancedSkills">
-                            0
-                        </h2>
+                        <h2 id="advancedSkills">0</h2>
 
                     </div>
 
@@ -186,9 +179,7 @@
 
                         <p>Learning</p>
 
-                        <h2 id="learningSkills">
-                            0
-                        </h2>
+                        <h2 id="learningSkills">0</h2>
 
                     </div>
 
@@ -205,9 +196,7 @@
 
                         <p>Overall Progress</p>
 
-                        <h2 id="overallProgress">
-                            0%
-                        </h2>
+                        <h2 id="overallProgress">0%</h2>
 
                     </div>
 
@@ -234,8 +223,9 @@
 
                     </div>
 
-                    <div class="overall-number"
-                         id="overallNumber">
+                    <div
+                        class="overall-number"
+                        id="overallNumber">
 
                         0%
 
@@ -274,6 +264,7 @@
 
                     </div>
 
+
                     <input
                         type="text"
                         id="searchInput"
@@ -282,11 +273,10 @@
                 </div>
 
 
-                <!-- FILTERS -->
-
                 <div class="filters">
 
                     <button
+                        type="button"
                         class="filter active"
                         data-filter="All">
 
@@ -294,7 +284,9 @@
 
                     </button>
 
+
                     <button
+                        type="button"
                         class="filter"
                         data-filter="Advanced">
 
@@ -302,7 +294,9 @@
 
                     </button>
 
+
                     <button
+                        type="button"
                         class="filter"
                         data-filter="Intermediate">
 
@@ -310,7 +304,9 @@
 
                     </button>
 
+
                     <button
+                        type="button"
                         class="filter"
                         data-filter="Beginner">
 
@@ -320,8 +316,6 @@
 
                 </div>
 
-
-                <!-- SKILL LIST -->
 
                 <div
                     id="skillList"
@@ -337,17 +331,21 @@
 
     <!-- ================= MODAL ================= -->
 
-    <div class="modal" id="modal">
+    <div
+        class="modal"
+        id="modal">
 
         <div class="modal-box">
 
             <button
+                type="button"
                 class="close-btn"
                 id="closeModal">
 
                 ×
 
             </button>
+
 
             <h2>
                 Add Skill
@@ -401,15 +399,22 @@
 
 
                 <label>
-                    Progress: <span id="progressValue">50</span>%
+
+                    Progress:
+                    <span id="progressValue">50</span>%
+
                 </label>
+
 
                 <input
                     type="range"
                     id="skillProgress"
                     min="0"
                     max="100"
-                    value="50">
+                    value="50"
+                    oninput="
+                        document.getElementById('progressValue').textContent = this.value;
+                    ">
 
 
                 <button
@@ -427,10 +432,896 @@
     </div>
 
 
-    <script src="js/skills.js"></script>
+    <!-- =====================================================
+         ALL SKILLS JAVASCRIPT
+         ===================================================== -->
+
+    <script>
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            function () {
+
+
+                // ================= USER =================
+
+                const storedUser =
+                    localStorage.getItem(
+                        "careerTrackUser"
+                    );
+
+
+                if (!storedUser) {
+
+                    window.location.href =
+                        "login.html";
+
+                    return;
+
+                }
+
+
+                const currentUser =
+                    JSON.parse(storedUser);
+
+
+                // ================= PROFILE =================
+
+                const profileName =
+                    document.getElementById(
+                        "profileName"
+                    );
+
+
+                const profileAvatar =
+                    document.getElementById(
+                        "profileAvatar"
+                    );
+
+
+                if (profileName) {
+
+                    profileName.textContent =
+                        currentUser.name;
+
+                }
+
+
+                if (profileAvatar) {
+
+                    profileAvatar.textContent =
+                        currentUser.name
+                            .charAt(0)
+                            .toUpperCase();
+
+                }
+
+
+                // ================= STORAGE =================
+
+                const storageKey =
+                    "careerTrackSkills_" +
+                    currentUser.id;
+
+
+                // ================= ELEMENTS =================
+
+                const skillList =
+                    document.getElementById(
+                        "skillList"
+                    );
+
+
+                const totalSkills =
+                    document.getElementById(
+                        "totalSkills"
+                    );
+
+
+                const advancedSkills =
+                    document.getElementById(
+                        "advancedSkills"
+                    );
+
+
+                const learningSkills =
+                    document.getElementById(
+                        "learningSkills"
+                    );
+
+
+                const overallProgress =
+                    document.getElementById(
+                        "overallProgress"
+                    );
+
+
+                const overallNumber =
+                    document.getElementById(
+                        "overallNumber"
+                    );
+
+
+                const overallFill =
+                    document.getElementById(
+                        "overallFill"
+                    );
+
+
+                const searchInput =
+                    document.getElementById(
+                        "searchInput"
+                    );
+
+
+                const modal =
+                    document.getElementById(
+                        "modal"
+                    );
+
+
+                const openModal =
+                    document.getElementById(
+                        "openModal"
+                    );
+
+
+                const closeModal =
+                    document.getElementById(
+                        "closeModal"
+                    );
+
+
+                const skillForm =
+                    document.getElementById(
+                        "skillForm"
+                    );
+
+
+                const skillName =
+                    document.getElementById(
+                        "skillName"
+                    );
+
+
+                const skillCategory =
+                    document.getElementById(
+                        "skillCategory"
+                    );
+
+
+                const skillProgress =
+                    document.getElementById(
+                        "skillProgress"
+                    );
+
+
+                const progressValue =
+                    document.getElementById(
+                        "progressValue"
+                    );
+
+
+                const filters =
+                    document.querySelectorAll(
+                        ".filter"
+                    );
+
+
+                let currentFilter =
+                    "All";
+
+
+                // ================= LOAD =================
+
+                let skills =
+                    JSON.parse(
+                        localStorage.getItem(
+                            storageKey
+                        )
+                    ) || [];
+
+
+                // ================= LEVEL =================
+
+                function getLevel(progress) {
+
+                    if (progress >= 80) {
+
+                        return "Advanced";
+
+                    }
+
+                    if (progress >= 50) {
+
+                        return "Intermediate";
+
+                    }
+
+                    return "Beginner";
+
+                }
+
+
+                // ================= ICON =================
+
+                function getIcon(category) {
+
+                    if (
+                        category ===
+                        "Programming"
+                    ) {
+                        return "💻";
+                    }
+
+                    if (
+                        category ===
+                        "Web Development"
+                    ) {
+                        return "🌐";
+                    }
+
+                    if (
+                        category ===
+                        "Database"
+                    ) {
+                        return "🗄️";
+                    }
+
+                    if (
+                        category ===
+                        "Tools"
+                    ) {
+                        return "🛠️";
+                    }
+
+                    return "⭐";
+
+                }
+
+
+                // ================= SAVE =================
+
+                function saveSkills() {
+
+                    localStorage.setItem(
+                        storageKey,
+                        JSON.stringify(
+                            skills
+                        )
+                    );
+
+                }
+
+
+                // ================= STATS =================
+
+                function updateStats() {
+
+                    const total =
+                        skills.length;
+
+
+                    const advanced =
+                        skills.filter(
+                            function (skill) {
+
+                                return (
+                                    getLevel(
+                                        Number(
+                                            skill.progress
+                                        )
+                                    ) ===
+                                    "Advanced"
+                                );
+
+                            }
+                        ).length;
+
+
+                    const learning =
+                        skills.filter(
+                            function (skill) {
+
+                                return Number(
+                                    skill.progress
+                                ) < 80;
+
+                            }
+                        ).length;
+
+
+                    let average = 0;
+
+
+                    if (total > 0) {
+
+                        let sum = 0;
+
+
+                        skills.forEach(
+                            function (skill) {
+
+                                sum += Number(
+                                    skill.progress
+                                );
+
+                            }
+                        );
+
+
+                        average =
+                            Math.round(
+                                sum / total
+                            );
+
+                    }
+
+
+                    totalSkills.textContent =
+                        total;
+
+
+                    advancedSkills.textContent =
+                        advanced;
+
+
+                    learningSkills.textContent =
+                        learning;
+
+
+                    overallProgress.textContent =
+                        average + "%";
+
+
+                    overallNumber.textContent =
+                        average + "%";
+
+
+                    overallFill.style.width =
+                        average + "%";
+
+                }
+
+
+                // ================= DISPLAY =================
+
+                function displaySkills() {
+
+                    const search =
+                        searchInput.value
+                            .toLowerCase()
+                            .trim();
+
+
+                    const filtered =
+                        skills.filter(
+                            function (skill) {
+
+                                const name =
+                                    skill.name
+                                        .toLowerCase();
+
+
+                                const level =
+                                    getLevel(
+                                        Number(
+                                            skill.progress
+                                        )
+                                    );
+
+
+                                return (
+                                    name.includes(
+                                        search
+                                    ) &&
+                                    (
+                                        currentFilter ===
+                                        "All" ||
+                                        currentFilter ===
+                                        level
+                                    )
+                                );
+
+                            }
+                        );
+
+
+                    skillList.innerHTML =
+                        "";
+
+
+                    if (
+                        filtered.length === 0
+                    ) {
+
+                        skillList.innerHTML = `
+
+                            <div class="empty">
+
+                                No skills found.
+
+                            </div>
+
+                        `;
+
+                        return;
+
+                    }
+
+
+                    filtered.forEach(
+                        function (skill) {
+
+
+                            const level =
+                                getLevel(
+                                    Number(
+                                        skill.progress
+                                    )
+                                );
+
+
+                            const element =
+                                document.createElement(
+                                    "div"
+                                );
+
+
+                            element.className =
+                                "skill";
+
+
+                            element.innerHTML = `
+
+                                <div class="skill-top">
+
+                                    <div class="skill-info">
+
+                                        <div class="skill-icon">
+                                            ${getIcon(skill.category)}
+                                        </div>
+
+                                        <div>
+
+                                            <div class="skill-name">
+                                                ${skill.name}
+                                            </div>
+
+                                            <div class="skill-category">
+                                                ${skill.category}
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="skill-percentage">
+                                        ${skill.progress}%
+                                    </div>
+
+                                </div>
+
+
+                                <div class="skill-progress">
+
+                                    <div
+                                        class="skill-progress-fill"
+                                        style="width:${skill.progress}%">
+                                    </div>
+
+                                </div>
+
+
+                                <div class="skill-bottom">
+
+                                    <span class="level ${level}">
+                                        ${level}
+                                    </span>
+
+
+                                    <div class="skill-actions">
+
+                                        <button
+                                            type="button"
+                                            class="edit-btn"
+                                            data-id="${skill.id}">
+
+                                            ✏️ Edit
+
+                                        </button>
+
+
+                                        <button
+                                            type="button"
+                                            class="delete-btn"
+                                            data-id="${skill.id}">
+
+                                            🗑️ Delete
+
+                                        </button>
+
+                                    </div>
+
+                                </div>
+
+                            `;
+
+
+                            skillList.appendChild(
+                                element
+                            );
+
+                        }
+                    );
+
+
+                    // ================= EDIT =================
+
+                    document
+                        .querySelectorAll(
+                            ".edit-btn"
+                        )
+                        .forEach(
+                            function (button) {
+
+                                button.addEventListener(
+                                    "click",
+                                    function () {
+
+                                        const id =
+                                            Number(
+                                                button.dataset.id
+                                            );
+
+
+                                        const skill =
+                                            skills.find(
+                                                function (
+                                                    item
+                                                ) {
+
+                                                    return (
+                                                        item.id ===
+                                                        id
+                                                    );
+
+                                                }
+                                            );
+
+
+                                        if (!skill) {
+                                            return;
+                                        }
+
+
+                                        const value =
+                                            prompt(
+                                                "Enter progress (0-100):",
+                                                skill.progress
+                                            );
+
+
+                                        if (
+                                            value ===
+                                            null
+                                        ) {
+                                            return;
+                                        }
+
+
+                                        const progress =
+                                            Number(
+                                                value
+                                            );
+
+
+                                        if (
+                                            isNaN(
+                                                progress
+                                            ) ||
+                                            progress <
+                                            0 ||
+                                            progress >
+                                            100
+                                        ) {
+
+                                            alert(
+                                                "Enter a value between 0 and 100."
+                                            );
+
+                                            return;
+
+                                        }
+
+
+                                        skill.progress =
+                                            progress;
+
+
+                                        saveSkills();
+
+                                        updateStats();
+
+                                        displaySkills();
+
+                                    }
+                                );
+
+                            }
+                        );
+
+
+                    // ================= DELETE =================
+
+                    document
+                        .querySelectorAll(
+                            ".delete-btn"
+                        )
+                        .forEach(
+                            function (button) {
+
+                                button.addEventListener(
+                                    "click",
+                                    function () {
+
+                                        const id =
+                                            Number(
+                                                button.dataset.id
+                                            );
+
+
+                                        const skill =
+                                            skills.find(
+                                                function (
+                                                    item
+                                                ) {
+
+                                                    return (
+                                                        item.id ===
+                                                        id
+                                                    );
+
+                                                }
+                                            );
+
+
+                                        if (!skill) {
+                                            return;
+                                        }
+
+
+                                        if (
+                                            !confirm(
+                                                "Delete " +
+                                                skill.name +
+                                                "?"
+                                            )
+                                        ) {
+                                            return;
+                                        }
+
+
+                                        skills =
+                                            skills.filter(
+                                                function (
+                                                    item
+                                                ) {
+
+                                                    return (
+                                                        item.id !==
+                                                        id
+                                                    );
+
+                                                }
+                                            );
+
+
+                                        saveSkills();
+
+                                        updateStats();
+
+                                        displaySkills();
+
+                                    }
+                                );
+
+                            }
+                        );
+
+                }
+
+
+                // ================= ADD MODAL =================
+
+                openModal.addEventListener(
+                    "click",
+                    function () {
+
+                        modal.classList.add(
+                            "show"
+                        );
+
+                        skillForm.reset();
+
+                        skillProgress.value =
+                            50;
+
+                        progressValue.textContent =
+                            "50";
+
+                    }
+                );
+
+
+                closeModal.addEventListener(
+                    "click",
+                    function () {
+
+                        modal.classList.remove(
+                            "show"
+                        );
+
+                    }
+                );
+
+
+                modal.addEventListener(
+                    "click",
+                    function (event) {
+
+                        if (
+                            event.target ===
+                            modal
+                        ) {
+
+                            modal.classList.remove(
+                                "show"
+                            );
+
+                        }
+
+                    }
+                );
+
+
+                // ================= ADD SKILL =================
+
+                skillForm.addEventListener(
+                    "submit",
+                    function (event) {
+
+                        event.preventDefault();
+
+
+                        const name =
+                            skillName.value
+                                .trim();
+
+
+                        const category =
+                            skillCategory.value;
+
+
+                        const progress =
+                            Number(
+                                skillProgress.value
+                            );
+
+
+                        if (!name) {
+
+                            alert(
+                                "Please enter a skill name."
+                            );
+
+                            return;
+
+                        }
+
+
+                        skills.push({
+
+                            id: Date.now(),
+
+                            name: name,
+
+                            category: category,
+
+                            progress: progress
+
+                        });
+
+
+                        saveSkills();
+
+                        updateStats();
+
+                        displaySkills();
+
+
+                        skillForm.reset();
+
+
+                        skillProgress.value =
+                            50;
+
+
+                        progressValue.textContent =
+                            "50";
+
+
+                        modal.classList.remove(
+                            "show"
+                        );
+
+                    }
+                );
+
+
+                // ================= SEARCH =================
+
+                searchInput.addEventListener(
+                    "input",
+                    displaySkills
+                );
+
+
+                // ================= FILTER =================
+
+                filters.forEach(
+                    function (filter) {
+
+                        filter.addEventListener(
+                            "click",
+                            function () {
+
+                                filters.forEach(
+                                    function (item) {
+
+                                        item.classList.remove(
+                                            "active"
+                                        );
+
+                                    }
+                                );
+
+
+                                filter.classList.add(
+                                    "active"
+                                );
+
+
+                                currentFilter =
+                                    filter.dataset.filter;
+
+
+                                displaySkills();
+
+                            }
+                        );
+
+                    }
+                );
+
+
+                // ================= INITIAL =================
+
+                updateStats();
+
+                displaySkills();
+
+
+                console.log(
+                    "CareerTrack Skills loaded successfully"
+                );
+
+            }
+        );
+
+    </script>
 
 </body>
 
 </html>
-<script src="js/user.js"></script>
-<script src="js/skills.js"></script>

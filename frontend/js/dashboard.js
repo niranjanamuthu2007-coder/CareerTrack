@@ -6,7 +6,9 @@
 
 // ================= API CONFIGURATION =================
 
-const API_URL = "http://localhost:8080/api/dashboard";
+const API_URL =
+    "http://localhost:8080/api/dashboard";
+
 
 // ================= AUTHENTICATION CHECK =================
 
@@ -47,6 +49,8 @@ if (!currentUser) {
 }
 
 
+// ================= USER PROFILE =================
+
 const userName =
     document.getElementById("userName");
 
@@ -56,61 +60,67 @@ const profileName =
 const profileAvatar =
     document.getElementById("profileAvatar");
 
+
 if (currentUser) {
 
     if (userName) {
+
         userName.textContent =
             currentUser.name + "!";
+
     }
+
 
     if (profileName) {
+
         profileName.textContent =
             currentUser.name;
+
     }
 
+
     if (profileAvatar) {
+
         profileAvatar.textContent =
             currentUser.name
                 .charAt(0)
                 .toUpperCase();
+
     }
+
 }
+
 
 // ================= CURRENT DATE =================
 
 const currentDateElement =
-    document.getElementById("currentDate");
+    document.getElementById(
+        "currentDate"
+    );
+
 
 if (currentDateElement) {
 
-    const today = new Date();
+    const today =
+        new Date();
 
     const options = {
+
         year: "numeric",
+
         month: "long",
+
         day: "numeric"
+
     };
+
 
     currentDateElement.textContent =
         today.toLocaleDateString(
             "en-US",
             options
         );
-}
 
-
-// ================= USER NAME =================
-
-const userNameElement =
-    document.getElementById("userName");
-
-if (
-    userNameElement &&
-    currentUser
-) {
-
-    userNameElement.textContent =
-        currentUser.name;
 }
 
 
@@ -125,7 +135,9 @@ async function loadDashboardData() {
         );
 
         return;
+
     }
+
 
     try {
 
@@ -140,6 +152,7 @@ async function loadDashboardData() {
             throw new Error(
                 "Failed to load dashboard data"
             );
+
         }
 
 
@@ -153,22 +166,25 @@ async function loadDashboardData() {
         );
 
 
-        // ================= UPDATE COUNTERS =================
+        // ================= JOB COUNTERS =================
 
         updateCounter(
-    "jobApplicationsCount",
-    data.totalApplications
-);
+            "jobApplicationsCount",
+            data.totalApplications
+        );
+
 
         updateCounter(
             "appliedCount",
             data.applied
         );
 
+
         updateCounter(
             "interviewCount",
             data.interview
         );
+
 
         updateCounter(
             "selectedCount",
@@ -188,6 +204,144 @@ async function loadDashboardData() {
 }
 
 
+// ================= LOAD SKILLS DATA =================
+
+function loadSkillsData() {
+
+    if (!currentUser) {
+
+        return;
+
+    }
+
+
+    const skillsStorageKey =
+        "careerTrackSkills_" +
+        currentUser.id;
+
+
+    const storedSkills =
+        localStorage.getItem(
+            skillsStorageKey
+        );
+
+
+    let skills = [];
+
+
+    if (storedSkills) {
+
+        try {
+
+            skills =
+                JSON.parse(
+                    storedSkills
+                );
+
+        } catch (error) {
+
+            console.error(
+                "Invalid skills data:",
+                error
+            );
+
+            skills = [];
+
+        }
+
+    } else {
+
+        // Default skills used by Skills Tracker
+
+        skills = [
+
+            {
+                id: 1,
+                name: "Java",
+                category: "Programming",
+                progress: 85
+            },
+
+            {
+                id: 2,
+                name: "Python",
+                category: "Programming",
+                progress: 70
+            },
+
+            {
+                id: 3,
+                name: "C++",
+                category: "Programming",
+                progress: 65
+            },
+
+            {
+                id: 4,
+                name: "SQL",
+                category: "Database",
+                progress: 75
+            },
+
+            {
+                id: 5,
+                name: "HTML / CSS / JavaScript",
+                category: "Web Development",
+                progress: 80
+            },
+
+            {
+                id: 6,
+                name: "DSA",
+                category: "Programming",
+                progress: 72
+            },
+
+            {
+                id: 7,
+                name: "Git & GitHub",
+                category: "Tools",
+                progress: 65
+            },
+
+            {
+                id: 8,
+                name: "Spring Boot",
+                category: "Programming",
+                progress: 40
+            }
+
+        ];
+
+    }
+
+
+    const skillsCount =
+        document.getElementById(
+            "skillsCount"
+        );
+
+
+    if (skillsCount) {
+
+        updateCounter(
+            "skillsCount",
+            skills.length
+        );
+
+    }
+
+
+    console.log(
+        "Skills loaded for",
+        currentUser.name,
+        ":",
+        skills.length
+    );
+
+}
+
+
 // ================= ANIMATED COUNTER =================
 
 function updateCounter(
@@ -202,7 +356,9 @@ function updateCounter(
 
 
     if (!counter) {
+
         return;
+
     }
 
 
@@ -216,7 +372,9 @@ function updateCounter(
     const increment =
         Math.max(
             1,
-            Math.ceil(target / 35)
+            Math.ceil(
+                target / 35
+            )
         );
 
 
@@ -231,6 +389,7 @@ function updateCounter(
                 target;
 
             return;
+
         }
 
 
@@ -284,6 +443,7 @@ if (
                 "open"
             );
 
+
             sidebarOverlay.classList.toggle(
                 "active"
             );
@@ -300,6 +460,7 @@ if (
                 "open"
             );
 
+
             sidebarOverlay.classList.remove(
                 "active"
             );
@@ -308,6 +469,8 @@ if (
     );
 
 }
+
+
 // ================= STATIC CARD COUNTERS =================
 
 function animateStaticCounters() {
@@ -317,47 +480,80 @@ function animateStaticCounters() {
             ".stat-number[data-target]"
         );
 
-    counters.forEach(counter => {
 
-        const target =
-            Number(
-                counter.getAttribute(
-                    "data-target"
-                )
-            );
+    counters.forEach(
+        counter => {
 
-        let current = 0;
+            // Skills count is dynamic.
+            // Do not use the hardcoded data-target value.
 
-        const increment =
-            Math.max(
-                1,
-                Math.ceil(target / 35)
-            );
-
-        const update = () => {
-
-            current += increment;
-
-            if (current >= target) {
-
-                counter.textContent =
-                    target;
+            if (
+                counter.id ===
+                "skillsCount"
+            ) {
 
                 return;
+
             }
 
-            counter.textContent =
-                current;
 
-            requestAnimationFrame(
-                update
-            );
-        };
+            const target =
+                Number(
+                    counter.getAttribute(
+                        "data-target"
+                    )
+                );
 
-        update();
 
-    });
+            let current = 0;
+
+
+            const increment =
+                Math.max(
+                    1,
+                    Math.ceil(
+                        target / 35
+                    )
+                );
+
+
+            const update = () => {
+
+                current +=
+                    increment;
+
+
+                if (
+                    current >=
+                    target
+                ) {
+
+                    counter.textContent =
+                        target;
+
+                    return;
+
+                }
+
+
+                counter.textContent =
+                    current;
+
+
+                requestAnimationFrame(
+                    update
+                );
+
+            };
+
+
+            update();
+
+        }
+    );
+
 }
+
 
 // ================= TASK CHECKBOXES =================
 
@@ -367,44 +563,50 @@ const taskItems =
     );
 
 
-taskItems.forEach(task => {
+taskItems.forEach(
+    task => {
 
-    const checkbox =
-        task.querySelector(
-            "input[type='checkbox']"
-        );
-
-
-    if (!checkbox) {
-        return;
-    }
+        const checkbox =
+            task.querySelector(
+                "input[type='checkbox']"
+            );
 
 
-    checkbox.addEventListener(
-        "change",
-        () => {
+        if (!checkbox) {
 
-            if (checkbox.checked) {
-
-                task.classList.add(
-                    "completed"
-                );
-
-            } else {
-
-                task.classList.remove(
-                    "completed"
-                );
-
-            }
-
-
-            updateTaskCount();
+            return;
 
         }
-    );
 
-});
+
+        checkbox.addEventListener(
+            "change",
+            () => {
+
+                if (
+                    checkbox.checked
+                ) {
+
+                    task.classList.add(
+                        "completed"
+                    );
+
+                } else {
+
+                    task.classList.remove(
+                        "completed"
+                    );
+
+                }
+
+
+                updateTaskCount();
+
+            }
+        );
+
+    }
+);
 
 
 // ================= TASK COUNT =================
@@ -490,30 +692,42 @@ const navItems =
         ".nav-item"
     );
 
-navItems.forEach(item => {
 
-    item.addEventListener(
-        "click",
-        event => {
+navItems.forEach(
+    item => {
 
-            const href =
-                item.getAttribute("href");
+        item.addEventListener(
+            "click",
+            event => {
 
-            if (!href || href === "#") {
+                const href =
+                    item.getAttribute(
+                        "href"
+                    );
 
-                event.preventDefault();
+
+                if (
+                    !href ||
+                    href === "#"
+                ) {
+
+                    event.preventDefault();
+
+                }
 
             }
+        );
 
-        }
-    );
-
-});
+    }
+);
 
 
-// ================= LOAD DATA =================
+// ================= LOAD EVERYTHING =================
 
 loadDashboardData();
+
+loadSkillsData();
+
 animateStaticCounters();
 
 
