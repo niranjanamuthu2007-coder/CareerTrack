@@ -2,16 +2,12 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>CareerTrack - Study Planner</title>
 
     <link rel="stylesheet" href="css/study.css">
-
 </head>
 
 <body>
@@ -27,29 +23,29 @@
         <nav>
 
             <a href="dashboard.html">
-                📊 Dashboard
+                📊 <span>Dashboard</span>
             </a>
 
             <a href="dsa.html">
-                🧠 DSA Tracker
+                🧠 <span>DSA Tracker</span>
             </a>
 
             <a href="jobs.html">
-                💼 Job Tracker
+                💼 <span>Job Tracker</span>
             </a>
 
             <a href="skills.html">
-                🛠️ Skills
+                🛠️ <span>Skills</span>
             </a>
 
             <a href="study.html" class="active">
-                📚 Study Planner
+                📚 <span>Study Planner</span>
             </a>
 
         </nav>
 
         <a href="login.html" class="logout">
-            🚪 Logout
+            🚪 <span>Logout</span>
         </a>
 
     </aside>
@@ -59,9 +55,11 @@
 
     <main class="main">
 
+        <!-- ================= TOPBAR ================= -->
+
         <header class="topbar">
 
-            <div>
+            <div class="topbar-left">
 
                 <h2>Study Planner</h2>
 
@@ -71,15 +69,18 @@
 
             </div>
 
+
             <div class="profile">
 
-                <div class="avatar">
+                <div class="avatar" id="profileAvatar">
                     N
                 </div>
 
-                <div>
+                <div class="profile-info">
 
-                    <strong>Niranjana</strong>
+                    <strong id="profileName">
+                        Student
+                    </strong>
 
                     <small>
                         Student
@@ -97,11 +98,11 @@
         <section class="content">
 
 
-            <!-- PAGE HEADER -->
+            <!-- ================= PAGE HEADER ================= -->
 
             <div class="page-header">
 
-                <div>
+                <div class="page-title">
 
                     <span class="tag">
                         STUDY & PLACEMENT PREPARATION
@@ -134,13 +135,16 @@
 
             <div class="stats-grid">
 
+
+                <!-- TOTAL -->
+
                 <div class="stat-card">
 
                     <div class="icon blue">
                         📋
                     </div>
 
-                    <div>
+                    <div class="stat-content">
 
                         <p>Total Tasks</p>
 
@@ -153,13 +157,15 @@
                 </div>
 
 
+                <!-- PENDING -->
+
                 <div class="stat-card">
 
                     <div class="icon orange">
                         ⏳
                     </div>
 
-                    <div>
+                    <div class="stat-content">
 
                         <p>Pending</p>
 
@@ -172,13 +178,15 @@
                 </div>
 
 
+                <!-- COMPLETED -->
+
                 <div class="stat-card">
 
                     <div class="icon green">
                         ✅
                     </div>
 
-                    <div>
+                    <div class="stat-content">
 
                         <p>Completed</p>
 
@@ -191,13 +199,15 @@
                 </div>
 
 
+                <!-- COMPLETION -->
+
                 <div class="stat-card">
 
                     <div class="icon purple">
                         📈
                     </div>
 
-                    <div>
+                    <div class="stat-content">
 
                         <p>Completion</p>
 
@@ -212,7 +222,7 @@
             </div>
 
 
-            <!-- ================= PROGRESS ================= -->
+            <!-- ================= TODAY'S PROGRESS ================= -->
 
             <div class="card progress-card">
 
@@ -249,9 +259,9 @@
             </div>
 
 
-            <!-- ================= TASK LIST ================= -->
+            <!-- ================= STUDY TASKS ================= -->
 
-            <div class="card">
+            <div class="card tasks-card">
 
                 <div class="filter-header">
 
@@ -266,6 +276,7 @@
                         </p>
 
                     </div>
+
 
                     <input
                         type="text"
@@ -320,11 +331,14 @@
     </main>
 
 
-    <!-- ================= MODAL ================= -->
+    <!-- ================= ADD TASK MODAL ================= -->
 
-    <div class="modal" id="modal">
+    <div
+        class="modal"
+        id="modal">
 
         <div class="modal-box">
+
 
             <button
                 class="close-btn"
@@ -333,6 +347,7 @@
                 ×
 
             </button>
+
 
             <h2>
                 Add Study Task
@@ -345,7 +360,10 @@
 
             <form id="taskForm">
 
-                <label>
+
+                <!-- TASK -->
+
+                <label for="taskName">
                     Task
                 </label>
 
@@ -356,7 +374,9 @@
                     required>
 
 
-                <label>
+                <!-- CATEGORY -->
+
+                <label for="taskCategory">
                     Category
                 </label>
 
@@ -389,7 +409,9 @@
                 </select>
 
 
-                <label>
+                <!-- PRIORITY -->
+
+                <label for="taskPriority">
                     Priority
                 </label>
 
@@ -410,7 +432,9 @@
                 </select>
 
 
-                <label>
+                <!-- DATE -->
+
+                <label for="taskDate">
                     Due Date
                 </label>
 
@@ -419,6 +443,8 @@
                     id="taskDate"
                     required>
 
+
+                <!-- SUBMIT -->
 
                 <button
                     type="submit"
@@ -435,10 +461,11 @@
     </div>
 
 
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script src="js/user.js"></script>
     <script src="js/study.js"></script>
 
 </body>
 
 </html>
-<script src="js/user.js"></script>
-<script src="js/study.js"></script>
