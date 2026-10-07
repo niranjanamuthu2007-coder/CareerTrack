@@ -39,6 +39,7 @@ Students will be able to:
 - Job application tracker
 - Skills tracker
 - Study planner
+- Settings
 - PostgreSQL database
 - Spring Boot backend
 - REST APIs
