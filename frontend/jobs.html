@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
 
     <meta name="viewport"
@@ -10,59 +9,110 @@
 
     <title>CareerTrack - Job Tracker</title>
 
-    <link rel="stylesheet" href="css/jobs.css">
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Job Tracker CSS -->
+    <link rel="stylesheet" href="css/jobs.css">
 </head>
 
 <body>
 
-    <!-- ================= SIDEBAR ================= -->
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
 
     <aside class="sidebar">
 
-        <div class="logo">
-            <span>Career</span>Track
+        <!-- Logo -->
+
+        <div class="sidebar-logo">
+
+            <a href="index.html" class="logo">
+
+                <span class="logo-icon">C</span>
+
+                <span>
+                    Career<span class="logo-highlight">Track</span>
+                </span>
+
+            </a>
+
         </div>
 
-        <nav>
+
+        <!-- Navigation -->
+
+        <nav class="sidebar-nav">
 
             <a href="dashboard.html">
-                📊 Dashboard
+                📊
+                <span>Dashboard</span>
             </a>
 
             <a href="dsa.html">
-                🧠 DSA Tracker
+                🧠
+                <span>DSA Tracker</span>
             </a>
 
             <a href="jobs.html" class="active">
-                💼 Job Tracker
+                💼
+                <span>Job Tracker</span>
             </a>
 
             <a href="skills.html">
-                🛠️ Skills
+                🛠️
+                <span>Skills</span>
             </a>
 
-            <a href="#">
-                📚 Study Planner
+            <a href="study.html">
+                📚
+                <span>Study Planner</span>
             </a>
+
         </nav>
 
-        <a href="login.html" class="logout">
-            🚪 Logout
-        </a>
+
+        <!-- Logout -->
+
+        <div class="sidebar-bottom">
+
+            <a href="login.html" class="logout">
+                🚪
+                <span>Logout</span>
+            </a>
+
+        </div>
 
     </aside>
 
 
-    <!-- ================= MAIN ================= -->
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
 
     <main class="main">
 
+
+        <!-- =================================================
+             TOP BAR
+        ================================================== -->
+
         <header class="topbar">
 
-            <div>
+            <!-- Page title -->
 
-                <h2>Job Tracker</h2>
+            <div class="topbar-left">
+
+                <h2>
+                    Job Tracker
+                </h2>
 
                 <p>
                     Track your internship and placement applications.
@@ -70,15 +120,27 @@
 
             </div>
 
+
+            <!-- User Profile -->
+
             <div class="profile">
 
-                <div class="avatar">
+                <div
+                    class="avatar"
+                    id="profileAvatar">
                     N
                 </div>
 
-                <div>
-                    <strong><span id="loggedInUserName">Student</span></strong>
-                    <small>Student</small>
+                <div class="profile-info">
+
+                    <strong id="profileName">
+                        Student
+                    </strong>
+
+                    <small>
+                        Student
+                    </small>
+
                 </div>
 
             </div>
@@ -86,15 +148,21 @@
         </header>
 
 
-        <!-- ================= CONTENT ================= -->
+
+        <!-- =================================================
+             PAGE CONTENT
+        ================================================== -->
 
         <section class="content">
 
-            <!-- PAGE HEADER -->
+
+            <!-- =================================================
+                 PAGE HEADER
+            ================================================== -->
 
             <div class="page-header">
 
-                <div>
+                <div class="page-header-text">
 
                     <span class="tag">
                         CAREER OPPORTUNITIES
@@ -111,20 +179,28 @@
 
                 </div>
 
+
                 <button
                     class="add-btn"
                     id="openModal">
 
-                    + Add Application
+                    <span>+</span>
+                    Add Application
 
                 </button>
 
             </div>
 
 
-            <!-- ================= STATS ================= -->
+
+            <!-- =================================================
+                 STATISTICS
+            ================================================== -->
 
             <div class="stats-grid">
+
+
+                <!-- Total Applications -->
 
                 <div class="stat-card">
 
@@ -132,9 +208,11 @@
                         📋
                     </div>
 
-                    <div>
+                    <div class="stat-info">
 
-                        <p>Total Applications</p>
+                        <p>
+                            Total Applications
+                        </p>
 
                         <h2 id="totalApplications">
                             0
@@ -145,15 +223,20 @@
                 </div>
 
 
+
+                <!-- Applied -->
+
                 <div class="stat-card">
 
                     <div class="icon yellow">
                         📤
                     </div>
 
-                    <div>
+                    <div class="stat-info">
 
-                        <p>Applied</p>
+                        <p>
+                            Applied
+                        </p>
 
                         <h2 id="appliedCount">
                             0
@@ -164,15 +247,20 @@
                 </div>
 
 
+
+                <!-- Interviews -->
+
                 <div class="stat-card">
 
                     <div class="icon purple">
                         🎤
                     </div>
 
-                    <div>
+                    <div class="stat-info">
 
-                        <p>Interviews</p>
+                        <p>
+                            Interviews
+                        </p>
 
                         <h2 id="interviewCount">
                             0
@@ -183,15 +271,20 @@
                 </div>
 
 
+
+                <!-- Selected -->
+
                 <div class="stat-card">
 
                     <div class="icon green">
                         🎉
                     </div>
 
-                    <div>
+                    <div class="stat-info">
 
-                        <p>Selected</p>
+                        <p>
+                            Selected
+                        </p>
 
                         <h2 id="selectedCount">
                             0
@@ -204,21 +297,32 @@
             </div>
 
 
-            <!-- ================= APPLICATIONS ================= -->
+
+            <!-- =================================================
+                 APPLICATION CARD
+            ================================================== -->
 
             <div class="card">
+
+
+                <!-- Card Header -->
 
                 <div class="filter-header">
 
                     <div>
 
-                        <h2>Applications</h2>
+                        <h2>
+                            Applications
+                        </h2>
 
                         <p>
                             Search and manage your applications.
                         </p>
 
                     </div>
+
+
+                    <!-- Search -->
 
                     <input
                         type="text"
@@ -228,7 +332,10 @@
                 </div>
 
 
-                <!-- FILTERS -->
+
+                <!-- =================================================
+                     FILTER BUTTONS
+                ================================================== -->
 
                 <div class="filters">
 
@@ -240,6 +347,7 @@
 
                     </button>
 
+
                     <button
                         class="filter"
                         data-filter="Applied">
@@ -247,6 +355,7 @@
                         Applied
 
                     </button>
+
 
                     <button
                         class="filter"
@@ -256,6 +365,7 @@
 
                     </button>
 
+
                     <button
                         class="filter"
                         data-filter="Selected">
@@ -263,6 +373,7 @@
                         Selected
 
                     </button>
+
 
                     <button
                         class="filter"
@@ -275,30 +386,49 @@
                 </div>
 
 
-                <!-- TABLE HEADER -->
+
+                <!-- =================================================
+                     APPLICATION TABLE HEADER
+                ================================================== -->
 
                 <div class="application-header">
 
-                    <span>Company</span>
+                    <span>
+                        Company
+                    </span>
 
-                    <span>Position</span>
+                    <span>
+                        Position
+                    </span>
 
-                    <span>Location</span>
+                    <span>
+                        Location
+                    </span>
 
-                    <span>Date</span>
+                    <span>
+                        Date
+                    </span>
 
-                    <span>Status</span>
+                    <span>
+                        Status
+                    </span>
 
-                    <span>Action</span>
+                    <span>
+                        Action
+                    </span>
 
                 </div>
 
 
-                <!-- APPLICATION LIST -->
+
+                <!-- =================================================
+                     APPLICATION LIST
+                ================================================== -->
 
                 <div
                     id="applicationList"
                     class="application-list">
+
                 </div>
 
             </div>
@@ -308,11 +438,20 @@
     </main>
 
 
-    <!-- ================= MODAL ================= -->
 
-    <div class="modal" id="modal">
+    <!-- =====================================================
+         ADD APPLICATION MODAL
+    ====================================================== -->
+
+    <div
+        class="modal"
+        id="modal">
+
 
         <div class="modal-box">
+
+
+            <!-- Close -->
 
             <button
                 class="close-btn"
@@ -322,16 +461,29 @@
 
             </button>
 
-            <h2>Add Job Application</h2>
+
+            <!-- Modal Heading -->
+
+            <h2>
+                Add Job Application
+            </h2>
 
             <p>
                 Add a new internship or job application.
             </p>
 
 
+
+            <!-- =================================================
+                 JOB FORM
+            ================================================== -->
+
             <form id="jobForm">
 
-                <label>
+
+                <!-- Company -->
+
+                <label for="company">
                     Company
                 </label>
 
@@ -342,8 +494,12 @@
                     required>
 
 
-                <label>
-                    Position</label>
+
+                <!-- Position -->
+
+                <label for="position">
+                    Position
+                </label>
 
                 <input
                     type="text"
@@ -352,7 +508,10 @@
                     required>
 
 
-                <label>
+
+                <!-- Location -->
+
+                <label for="location">
                     Location
                 </label>
 
@@ -363,7 +522,10 @@
                     required>
 
 
-                <label>
+
+                <!-- Application Date -->
+
+                <label for="applicationDate">
                     Application Date
                 </label>
 
@@ -373,7 +535,10 @@
                     required>
 
 
-                <label>
+
+                <!-- Status -->
+
+                <label for="status">
                     Status
                 </label>
 
@@ -398,6 +563,9 @@
                 </select>
 
 
+
+                <!-- Submit -->
+
                 <button
                     type="submit"
                     class="save-btn">
@@ -413,10 +581,17 @@
     </div>
 
 
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <!-- Common logged-in user/profile logic -->
+    <script src="js/user.js"></script>
+
+    <!-- Job Tracker functionality -->
     <script src="js/jobs.js"></script>
 
 </body>
 
 </html>
-<script src="js/user.js"></script>
-<script src="js/jobs.js"></script>
